@@ -11,6 +11,8 @@ export default function Catalog() {
 
 const styles = StyleSheet.create({
   catalogWrapper: {
-    backgroundColor: '#fff',
+    width: '100%',
+    height: '100%',
+    alignItems: 'center'
   },
 });
