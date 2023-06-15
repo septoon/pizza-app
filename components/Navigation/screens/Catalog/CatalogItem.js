@@ -5,8 +5,6 @@ export default function CatalogItem() {
     <View style={styles.catalogItem}>
       <View style={styles.catalogItemBlock}>
         <Image source={{
-          width: '100%',
-          height: 250,
           uri: 'https://user36270.clients-cdnnow.ru/1661934256270-350x234.jpeg'
         }} style={styles.image} />
         <Text style={styles.name}>Пицца с тунцом</Text>
@@ -39,6 +37,10 @@ const styles = StyleSheet.create({
   catalogItemBlock: {
     width: '100%',
     alignItems: 'center'
+  },
+  image: {
+    width: '100%',
+    height: 250,
   },
   name: {
     fontSize: 18
