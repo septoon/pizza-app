@@ -47,7 +47,7 @@ export default function CatalogItem({ id, image, title, composition, prices, isC
 
         <View style={styles.priceHolder}>
           <Text ref={priceHolder} style={styles.priceCount}>{activePrice} ₽</Text>
-          <Button style={styles.btnOrder} title='+ Добавить' />
+          <Button onPress={ onAddPizza } style={styles.btnOrder} title='+ Добавить' />
         </View>
       </View>
     </View>

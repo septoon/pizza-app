@@ -1,13 +1,29 @@
-import { Button, Image, StyleSheet, Text, View } from 'react-native';
+import { Image, StyleSheet, Text, View } from 'react-native';
+import { useDispatch, useSelector } from 'react-redux';
 
 export default function Header() {
+  const dispatch = useDispatch()
+
+  const { totalCount, totalPrice } = useSelector(({ cart }) => ({
+      totalPrice: cart.totalPrice,
+      totalCount: cart.totalCount
+  }))
+
+  const { items } = useSelector(({ cart }) => ({
+      items: cart.items
+  }))
+
+  const goToCart = () => {
+    if (items.length > 0) dispatch(toggleIsActiveAC(false))
+}
+
   return (
     <View style={styles.header}>
       <Image style={styles.logo} source={require('../../assets/img/text-logo.png')} />
       <View style={styles.basket} >
-        <Text style={styles.basketText}>0 ₽</Text>
+        <Text style={styles.basketText}>{totalPrice} ₽</Text>
         <Text style={styles.basketText}>|</Text>
-        <Button style={styles.basketText} color='#fff' title='0' />
+        <Text style={styles.basketText} onPress={ goToCart }>{totalCount} ₽</Text>
       </View>
     </View>
   );
