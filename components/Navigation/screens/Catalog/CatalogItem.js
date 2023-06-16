@@ -1,28 +1,52 @@
+import { createRef, useState } from 'react';
 import { Button, Image, StyleSheet, Text, View } from 'react-native';
 
-export default function CatalogItem() {
+export default function CatalogItem({ id, image, title, composition, prices, isChange, onClickAddPizza }) {
+  const priceHolder = createRef()
+
+  const [activeSize, setActiveSize] = useState('30 см')
+  const [activePrice, setActivePrice] = useState(prices[0])
+
+  const onAddPizza = () => {
+    const obj = {
+      id, title, image, activePrice, activeSize
+    }
+    onClickAddPizza(obj)
+  }
   return (
     <View style={styles.catalogItem}>
       <View style={styles.catalogItemBlock}>
         <Image source={{
-          uri: 'https://user36270.clients-cdnnow.ru/1661934256270-350x234.jpeg'
+          uri: image
         }} style={styles.image} />
-        <Text style={styles.name}>Пицца с тунцом</Text>
-        <Text style={styles.description}>тунец, сыр пармезан, соус, оливки, помидоры</Text>
+        <Text style={styles.name}>{title}</Text>
+        <Text style={styles.description}>Состав: {composition}</Text>
       </View>
 
       <View style={styles.catalogItemBlock}>
         <View style={styles.size}>
-          <Button style={styles.sizeItem} title='Ø 30см' />
-          <Button style={styles.sizeItem} title='Ø 40см' />
-          <Button style={styles.sizeItem} title='Ø 50см' />
+          <Button onPress={(e) => {
+              isChange = true
+              setActivePrice(prices[0])
+              setActiveSize('30 см')
+            }} style={styles.sizeItem} title='Ø 30см' />
+          <Button onPress={(e) => {
+              isChange = true
+              setActivePrice(prices[1])
+              setActiveSize('40 см')
+            }} style={styles.sizeItem} title='Ø 40см' />
+          <Button onPress={(e) => {
+              isChange = true
+              setActivePrice(prices[2])
+              setActiveSize('50 см')
+            }} style={styles.sizeItem} title='Ø 50см' />
         </View>
 
         <Text style={styles.packingItem}>+40₽ к стоимости, за упаковку</Text>
         <Button style={styles.ingredients} title='Добавить ингредиенты' />
 
         <View style={styles.priceHolder}>
-          <Text style={styles.priceCount}>400 ₽</Text>
+          <Text ref={priceHolder} style={styles.priceCount}>{activePrice} ₽</Text>
           <Button style={styles.btnOrder} title='+ Добавить' />
         </View>
       </View>

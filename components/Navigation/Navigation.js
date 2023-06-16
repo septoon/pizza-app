@@ -13,10 +13,16 @@ export default function Navigation() {
         <Stack.Screen
           name="catalog"
           component={Catalog}
+          options={{
+            headerShown: false, // Не отображать заголовок
+          }}
         />
         <Stack.Screen
           name="cart"
           component={Cart}
+          options={{
+            headerShown: false,
+          }}
         />
       </Stack.Navigator>
     </NavigationContainer>
