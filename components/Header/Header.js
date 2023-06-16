@@ -1,4 +1,4 @@
-import { Image, StyleSheet, Text, View } from 'react-native';
+import { Button, Image, StyleSheet, Text, View } from 'react-native';
 
 export default function Header() {
   return (
@@ -7,7 +7,7 @@ export default function Header() {
       <View style={styles.basket} >
         <Text style={styles.basketText}>0 ₽</Text>
         <Text style={styles.basketText}>|</Text>
-        <Text style={styles.basketText}>0</Text>
+        <Button style={styles.basketText} color='#fff' title='0' />
       </View>
     </View>
   );
