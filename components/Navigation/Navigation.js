@@ -7,11 +7,13 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import Catalog from './screens/Catalog/Catalog';
 import Cart from './screens/Cart/Cart';
 import Tea from './screens/Tea/Tea';
+import Delivery from './screens/Delivery/Delivery';
 
 //Screen names
 const catalogName = "Catalog";
 const cartName = "Cart";
 const teaName = "Tea";
+const deliveryName = "Delivery";
 
 const Tab = createBottomTabNavigator();
 
@@ -33,6 +35,8 @@ export default function Navigation() {
 
             } else if (rn === teaName) {
               iconName = focused ? 'settings' : 'settings-outline';
+            } else if (rn === deliveryName) {
+              iconName = focused ? 'settings' : 'settings-outline';
             }
 
             // You can return any component that you like here!
@@ -49,6 +53,7 @@ export default function Navigation() {
         <Tab.Screen name={catalogName} options={{ headerShown: false }} component={Catalog} />
         <Tab.Screen name={cartName} options={{ headerShown: false }} component={Cart} />
         <Tab.Screen name={teaName} options={{ headerShown: false }} component={Tea} />
+        <Tab.Screen name={deliveryName} options={{ headerShown: false }} component={Delivery} />
 
       </Tab.Navigator>
     </NavigationContainer>
