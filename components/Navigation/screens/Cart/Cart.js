@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Button, StyleSheet, Text, View } from 'react-native';
+import { Button, Image, StyleSheet, Text, View } from 'react-native';
 import CartItem from './CartItem';
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -12,9 +12,9 @@ export default function Cart({ navigation }) {
     totalCount: cart.totalCount,
   }));
 
-  const { isDark } = useSelector(({ dark }) => ({
-    isDark: dark.isDark,
-  }));
+  // const { isDark } = useSelector(({ dark }) => ({
+  //   isDark: dark.isDark,
+  // }));
 
   const backBtnStyle = items.length ? 'cart_back_btn' : 'cart_back_btn empty';
 
@@ -136,16 +136,14 @@ export default function Cart({ navigation }) {
                   перейди на главную страницу.
                 </Text>
                 {isDark ? (
-                  <img src={emptyCartDark} alt="empty-cart-logo" style="empty-cart-logo" />
+                  <Image src={emptyCartDark} alt="empty-cart-logo" style="empty-cart-logo" />
                 ) : (
-                  <img src={emptyCart} alt="empty-cart-logo" style="empty-cart-logo" />
+                  <Image src={emptyCart} alt="empty-cart-logo" style="empty-cart-logo" />
                 )}
-
-                <NavLink to="/catalog" style="cart_back_btn_wrapper">
-                  <button style={backBtnstyle}>Вернуться назад</button>
-                </NavLink>
+                <Image source={require('../../../../assets/img/empty-cart.svg')} style="empty-cart-logo" /> 
+                <Button style={styles.backBtnStyle} onPress={() => navigation.navigate('Catalog')} title='Вернуться назад' />
               </View>
-            )}
+             )}
           </View>
         </View>
       </View>
