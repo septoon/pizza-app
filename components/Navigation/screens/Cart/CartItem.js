@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View } from 'react-native';
+import { Image, StyleSheet, Text, View } from 'react-native';
 import React from 'react';
 
 export default function CartItem({
@@ -10,9 +10,8 @@ export default function CartItem({
   price,
   count,
   onClickRemovePizza,
-  result,
+  calculatePrice,
 }) {
-  result.forEach((item) => (price += parseInt(item.activePrice) + 40));
   const onRemovePizza = () => {
     const pizzaObj = {
       pizzaId: id,
@@ -23,27 +22,25 @@ export default function CartItem({
   return (
     <View style={styles.cartItem}>
       <View style={styles.cartItemImg}>
-        <img style={styles.pizzaBlockImage} src={image} alt={title} />
+        <Image style={styles.pizzaBlockImage} source={require('../../../../assets/img/pepperoni.png')} />
       </View>
       <View style={styles.cartItemInfo}>
-        <Text>{title}</Text>
-        <Text>{activeSize}</Text>
+        <Text style={styles.titleText}>{title}</Text>
+        <Text style={styles.sizeText}>{activeSize}</Text>
       </View>
       <View style={styles.cartItemCount}>
         <View>
-          <img src={minus} style="svg minus" alt="minus" />
         </View>
-        <Text>{count}шт.</Text>
+        <Text style={styles.cartItemCountText}>{count} шт.</Text>
         <View>
-          <img src={plus} style="svg" alt="plus" />
         </View>
       </View>
       <View style={styles.cartItemPrice}>
-        <Text>{price}₽</Text>
+        <Text style={styles.priceText}>{price}₽</Text>
       </View>
       <View style={styles.cartItemRemove}>
         <View onClick={onRemovePizza}>
-          <img src={closeCart} style="close-cart svg" alt="closeCart" />
+          <Image source={require('../../../../assets/img/close.png')} style={styles.closeCart} />
         </View>
       </View>
     </View>

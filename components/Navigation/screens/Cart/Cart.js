@@ -12,23 +12,15 @@ export default function Cart({ navigation }) {
     totalCount: cart.totalCount,
   }));
 
-  // const { isDark } = useSelector(({ dark }) => ({
-  //   isDark: dark.isDark,
-  // }));
+  const backBtnStyle = items.length ? styles.cartBackBtn : [ styles.cartBackBtn, styles.empty ];
 
-  const backBtnStyle = items.length ? 'cart_back_btn' : 'cart_back_btn empty';
-
-  // Создайте новый массив уникальных элементов, используя метод reduce().
   const uniqueProducts = items.reduce((acc, current) => {
-    // Проверяем, есть ли элемент с таким же id в массиве acc
     const isDuplicate = acc.find(
       (item) => item.id === current.id && item.activeSize === current.activeSize,
     );
-    // Если элемент не найден, добавляем его в массив acc.
     if (!isDuplicate) {
       acc.push(current);
     }
-    // Возвращаем массив acc на каждой итерации
     return acc;
   }, []);
 
@@ -64,26 +56,25 @@ export default function Cart({ navigation }) {
               totalPrice={totalPrice}
             />
           )}
-          <View style="cart">
+          <View style={styles.cart}>
             {items.length ? (
-              // Если в корзине что-то есть
               <>
-                <View style="cart__top">
-                  <Text style="content__title">
+                <View style={styles.cartTop}>
+                  <Text style={styles.contentTitle}>
                     {' '}
-                    <img src={basket} style="bask svg" alt="basket" /> Корзина
+                    Корзина
                   </Text>
                   <View
-                    style="cart__clear"
+                    style={styles.cartClear}
                     onClick={() => {
                       let popup = window.confirm('Вы уверены, что хотите очистить корзину?');
                       popup && dispatch(clearPizzaCartAC());
                     }}>
-                    <img src={trash} alt="trash" />
+                    
                     <Text>Очистить корзину</Text>
                   </View>
                 </View>
-                <View style="content__items">
+                <View style={styles.contentItems}>
                   {uniqueProducts.map((item, index) => {
                     const result = items.filter(
                       (elem) => elem.id === item.id && elem.activeSize === item.activeSize,
@@ -91,10 +82,16 @@ export default function Cart({ navigation }) {
                     let price = 0;
                     const count = countById(items, item.id, item.activeSize);
 
+                    const calculatePrice = (result) => {
+                      let price = 0;
+                      result.forEach((item) => (price += parseInt(item.activePrice) + 40));
+                      return price;
+                    };                    
+
                     return (
                       <CartItem
                         key={index}
-                        result={result}
+                        calculatePrice={calculatePrice}
                         count={count}
                         price={price}
                         onClickRemovePizza={onClickRemovePizza}
@@ -103,44 +100,38 @@ export default function Cart({ navigation }) {
                     );
                   })}
                 </View>
-                <View style="cart__bottom">
-                  <View style="cart__bottom-details">
-                    <Text>
+                <View style={styles.cartBottom}>
+                  <View style={styles.cartBottomDetails}>
+                    <Text style={styles.cartTotalCount}>
                       {' '}
                       Всего пицц: <b>{totalCount} шт.</b>{' '}
                     </Text>
-                    <Text>
+                    <Text style={styles.cartTotalPrice}>
                       {' '}
                       Сумма заказа: <b>{totalPrice} ₽</b>{' '}
                     </Text>
                   </View>
-                  <View style="cart__bottom-buttons">
-                    <NavLink
-                      to="/catalog"
-                      style="cart_bottom"
-                      onClick={() => dispatch(toggleIsActiveAC(true))}>
-                      <Button style={backBtnStyle} title='Вернуться назад' />
-                    </NavLink>
-                    <View style="button pay-btn cart_bottom">
+                  <View style={styles.cartBottomButtons}>
+                      <Button style={backBtnStyle} onPress={() => {
+                        dispatch(toggleIsActiveAC(true))
+                        navigation.navigate('Catalog')
+                      }} title='Вернуться назад' />
+                    <View style={styles.payBtn}>
                       <Button style={styles.btnOrder} onPress={() => setIsOrder(true)} title='Заказать' />
                     </View>
                   </View>
                 </View>
               </>
             ) : (
-              // Если корзина пустая
-              <View style="empty_cart">
-                <Text>Корзина пустая</Text>
-                <Text>
+              
+              <View style={styles.emptyCart}>
+                <Text style={styles.emptyCartTitle}>Корзина пустая</Text>
+                <Text style={styles.emptyCartText}>
                   Вероятней всего, вы не заказывали ещё пиццу. Для того, чтобы заказать пиццу,
                   перейди на главную страницу.
                 </Text>
-                {isDark ? (
-                  <Image src={emptyCartDark} alt="empty-cart-logo" style="empty-cart-logo" />
-                ) : (
-                  <Image src={emptyCart} alt="empty-cart-logo" style="empty-cart-logo" />
-                )}
-                <Image source={require('../../../../assets/img/empty-cart.svg')} style="empty-cart-logo" /> 
+                  <Image source={require('../../../../assets/img/logo.png')} style={styles.emptyCartLogo} />
+                <Image source={require('../../../../assets/img/empty-cart.svg')} style={styles.emptyCartLogo} /> 
                 <Button style={styles.backBtnStyle} onPress={() => navigation.navigate('Catalog')} title='Вернуться назад' />
               </View>
              )}

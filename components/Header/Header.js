@@ -23,7 +23,7 @@ export default function Header() {
       <View style={styles.basket} >
         <Text style={styles.basketText}>{totalPrice} ₽</Text>
         <Text style={styles.basketText}>|</Text>
-        <Text style={styles.basketText} onPress={ goToCart }>{totalCount} ₽</Text>
+        <Text style={styles.basketText} onPress={ goToCart }>{totalCount} шт.</Text>
       </View>
     </View>
   );
