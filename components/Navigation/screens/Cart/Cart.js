@@ -4,6 +4,7 @@ import CartItem from './CartItem';
 import { useDispatch, useSelector } from 'react-redux';
 import { clearPizzaCartAC, removePizzaAC } from '../../../../redux/cart-reducer';
 import { createSelector } from 'reselect';
+import EmptyCartLogo from '../../../../assets/img/empty-cart.svg'
 
 const selectCart = state => state.cart;
 const selectCartData = createSelector(
@@ -123,7 +124,6 @@ export default function Cart({ navigation }) {
                   </View>
                   <View style={styles.cartBottomButtons}>
                       <Button style={backBtnStyle} onPress={() => {
-                        dispatch(toggleIsActiveAC(true))
                         navigation.navigate('Catalog')
                       }} title='Вернуться назад' />
                     <View style={styles.payBtn}>
@@ -140,8 +140,8 @@ export default function Cart({ navigation }) {
                   Вероятней всего, вы не заказывали ещё пиццу. Для того, чтобы заказать пиццу,
                   перейди на главную страницу.
                 </Text>
-                  <Image source={require('../../../../assets/img/logo.png')} style={styles.emptyCartLogo} />
-                <Image source={require('../../../../assets/img/empty-cart.svg')} style={styles.emptyCartLogo} /> 
+                  
+                <EmptyCartLogo style={styles.emptyCartLogo} /> 
                 <Button style={styles.backBtnStyle} onPress={() => navigation.navigate('Catalog')} title='Вернуться назад' />
               </View>
              )}
