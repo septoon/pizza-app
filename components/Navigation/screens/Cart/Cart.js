@@ -3,15 +3,21 @@ import { Button, Image, StyleSheet, Text, View, Alert } from 'react-native';
 import CartItem from './CartItem';
 import { useDispatch, useSelector } from 'react-redux';
 import { clearPizzaCartAC, removePizzaAC } from '../../../../redux/cart-reducer';
+import { createSelector } from 'reselect';
+
+const selectCart = state => state.cart;
+const selectCartData = createSelector(
+  [selectCart],
+  cart => ({
+    items: cart.items,
+    totalPrice: cart.totalPrice,
+    totalCount: cart.totalCount
+  })
+);
 
 export default function Cart({ navigation }) {
   const dispatch = useDispatch();
-
-  const { items, totalCount, totalPrice } = useSelector(({ cart }) => ({
-    items: cart.items,
-    totalPrice: cart.totalPrice,
-    totalCount: cart.totalCount,
-  }));
+  const { items, totalCount, totalPrice } = useSelector(selectCartData);
 
   const backBtnStyle = items.length ? styles.cartBackBtn : [ styles.cartBackBtn, styles.empty ];
 

@@ -1,21 +1,18 @@
 import { Image, StyleSheet, Text, View } from 'react-native';
-import { useDispatch, useSelector } from 'react-redux';
+import {  useSelector } from 'react-redux';
+import { createSelector } from 'reselect';
+
+const selectCart = state => state.cart;
+const selectCartData = createSelector(
+  [selectCart],
+  cart => ({
+    totalPrice: cart.totalPrice,
+    totalCount: cart.totalCount
+  })
+);
 
 export default function Header() {
-  const dispatch = useDispatch()
-
-  const { totalCount, totalPrice } = useSelector(({ cart }) => ({
-      totalPrice: cart.totalPrice,
-      totalCount: cart.totalCount
-  }))
-
-  const { items } = useSelector(({ cart }) => ({
-      items: cart.items
-  }))
-
-  const goToCart = () => {
-    if (items.length > 0) dispatch(toggleIsActiveAC(false))
-}
+  const { totalCount, totalPrice } = useSelector(selectCartData);
 
   return (
     <View style={styles.header}>
@@ -23,7 +20,7 @@ export default function Header() {
       <View style={styles.basket} >
         <Text style={styles.basketText}>{totalPrice} ₽</Text>
         <Text style={styles.basketText}>|</Text>
-        <Text style={styles.basketText} onPress={ goToCart }>{totalCount} шт.</Text>
+        <Text style={styles.basketText}>{totalCount} шт.</Text>
       </View>
     </View>
   );

@@ -26,29 +26,25 @@ export default function Navigation() {
           tabBarIcon: ({ focused, color, size }) => {
             let iconName;
             let rn = route.name;
-
+        
             if (rn === catalogName) {
               iconName = focused ? 'home' : 'home-outline';
-
             } else if (rn === cartName) {
               iconName = focused ? 'list' : 'list-outline';
-
             } else if (rn === teaName) {
               iconName = focused ? 'settings' : 'settings-outline';
             } else if (rn === deliveryName) {
               iconName = focused ? 'settings' : 'settings-outline';
             }
-
-            // You can return any component that you like here!
+        
             return <Ionicons name={iconName} size={size} color={color} />;
           },
+          tabBarActiveTintColor: 'tomato',
+          tabBarInactiveTintColor: 'grey',
+          tabBarLabelStyle: { paddingBottom: 10, fontSize: 10 },
+          tabBarStyle: { padding: 10, height: 90 }
         })}
-        tabBarOptions={{
-          activeTintColor: 'tomato',
-          inactiveTintColor: 'grey',
-          labelStyle: { paddingBottom: 10, fontSize: 10 },
-          style: { padding: 10, height: 70}
-        }}>
+        >
 
         <Tab.Screen name={catalogName} options={{ headerShown: false }} component={Catalog} />
         <Tab.Screen name={cartName} options={{ headerShown: false }} component={Cart} />
