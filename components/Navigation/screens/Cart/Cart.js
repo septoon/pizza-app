@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
-import { Button, Image, StyleSheet, Text, View, Alert } from 'react-native';
+import { Button, Image, StyleSheet, Text, View, Alert, Dimensions } from 'react-native';
 import CartItem from './CartItem';
 import { useDispatch, useSelector } from 'react-redux';
 import { clearPizzaCartAC, removePizzaAC } from '../../../../redux/cart-reducer';
 import { createSelector } from 'reselect';
 import EmptyCartLogo from '../../../../assets/img/empty-cart.svg'
+
+import Modal from "react-native-modal";
 
 const selectCart = state => state.cart;
 const selectCartData = createSelector(
@@ -17,6 +19,12 @@ const selectCartData = createSelector(
 );
 
 export default function Cart({ navigation }) {
+  const [isModalVisible, setModalVisible] = useState(false);
+
+  const toggleModal = () => {
+    setModalVisible(!isModalVisible);
+  };
+
   const dispatch = useDispatch();
   const { items, totalCount, totalPrice } = useSelector(selectCartData);
 
@@ -127,7 +135,14 @@ export default function Cart({ navigation }) {
                         navigation.navigate('Catalog')
                       }} title='Вернуться назад' />
                     <View style={styles.payBtn}>
-                      <Button style={styles.btnOrder} onPress={() => setIsOrder(true)} title='Заказать' />
+                      <Button style={styles.btnOrder} onPress={toggleModal} title='Заказать' />
+                      <Modal isVisible={isModalVisible} style={styles.modal} onSwipeComplete={toggleModal} swipeDirection="down" onBackdropPress={toggleModal}>
+                        <View style={{ flex: 1, paddingTop: 50, backgroundColor: 'white', borderTopLeftRadius: 15, borderTopRightRadius: 15 }}>
+                          <Button title="Назад" onPress={toggleModal} />
+
+                          <Text>Hello!</Text>
+                        </View>
+                      </Modal>
                     </View>
                   </View>
                 </View>
@@ -158,5 +173,10 @@ const styles = StyleSheet.create({
     height: '100%',
     justifyContent: 'center',
     alignItems: 'center',
+  },
+  modal: {
+    margin: 0,
+    justifyContent: 'flex-end',
+    paddingTop: 100
   },
 });
