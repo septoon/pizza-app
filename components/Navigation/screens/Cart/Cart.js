@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
-import { Button, Image, StyleSheet, Text, View } from 'react-native';
+import { Button, Image, StyleSheet, Text, View, Alert } from 'react-native';
 import CartItem from './CartItem';
 import { useDispatch, useSelector } from 'react-redux';
+import { clearPizzaCartAC, removePizzaAC } from '../../../../redux/cart-reducer';
 
 export default function Cart({ navigation }) {
   const dispatch = useDispatch();
@@ -64,15 +65,18 @@ export default function Cart({ navigation }) {
                     {' '}
                     Корзина
                   </Text>
-                  <View
+                  <Button
                     style={styles.cartClear}
-                    onClick={() => {
-                      let popup = window.confirm('Вы уверены, что хотите очистить корзину?');
-                      popup && dispatch(clearPizzaCartAC());
-                    }}>
-                    
-                    <Text>Очистить корзину</Text>
-                  </View>
+                    onPress={() => {
+                      Alert.alert('Очистить корзину', 'Вы уверены, что хотите очистить корзину?', [
+                        {
+                          text: 'Cancel',
+                          onPress: () => console.log('Cancel Pressed'),
+                          style: 'cancel',
+                        },
+                        {text: 'OK', onPress: () => dispatch(clearPizzaCartAC())},
+                      ])
+                    }} title="Очистить корзину" />
                 </View>
                 <View style={styles.contentItems}>
                   {uniqueProducts.map((item, index) => {
@@ -104,11 +108,11 @@ export default function Cart({ navigation }) {
                   <View style={styles.cartBottomDetails}>
                     <Text style={styles.cartTotalCount}>
                       {' '}
-                      Всего пицц: <b>{totalCount} шт.</b>{' '}
+                      Всего пицц: <Text>{totalCount} шт.</Text>{' '}
                     </Text>
                     <Text style={styles.cartTotalPrice}>
                       {' '}
-                      Сумма заказа: <b>{totalPrice} ₽</b>{' '}
+                      Сумма заказа: <Text>{totalPrice} ₽</Text>{' '}
                     </Text>
                   </View>
                   <View style={styles.cartBottomButtons}>

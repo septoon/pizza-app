@@ -1,4 +1,4 @@
-import { Image, StyleSheet, Text, View } from 'react-native';
+import { Image, StyleSheet, Text, TouchableHighlight, View } from 'react-native';
 import React from 'react';
 
 export default function CartItem({
@@ -39,12 +39,27 @@ export default function CartItem({
         <Text style={styles.priceText}>{price}₽</Text>
       </View>
       <View style={styles.cartItemRemove}>
-        <View onClick={onRemovePizza}>
+        <TouchableHighlight onPress={() => {
+          const pizzaObj = {
+            pizzaId: id,
+            pizzaSize: activeSize,
+          };
+          onClickRemovePizza(pizzaObj);
+        }}>
           <Image source={require('../../../../assets/img/close.png')} style={styles.closeCart} />
-        </View>
+        </TouchableHighlight>
       </View>
     </View>
   );
 }
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  pizzaBlockImage: {
+    width: 50,
+    height: 50
+  },
+  closeCart: {
+    width: 15,
+    height: 15
+  },
+});

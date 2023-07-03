@@ -8,7 +8,6 @@ import { addCatalogList, toggleIsActive } from '../../../../redux/catalog-reduce
 import { addPizzaToCartAC } from '../../../../redux/cart-reducer';
 import { createSelector } from 'reselect';
 
-// Создание мемоизированных селекторов с помощью createSelector
 const catalogDataSelector = state => state.catalogPage.catalogData;
 const isActiveSelector = state => state.catalogPage.isActive;
 

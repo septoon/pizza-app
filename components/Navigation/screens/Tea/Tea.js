@@ -19,6 +19,7 @@ export default function Tea() {
 
   const teaListMap = () => {
     return cardDataKeys.map((c, index) => {
+      console.log(c)
       return (
         <View style={styles.teaCardWrapper} key={index}>
           {
