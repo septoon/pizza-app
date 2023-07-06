@@ -8,10 +8,11 @@ const Form = ({ items, countById, totalItems, onClickClearCart, totalPrice, isMo
   const form = useRef();
   const inputTel = useRef();
 
-  const [address, setAddress] = useState('');
-  const [phoneNum, setPhoneNum] = useState('');
-
-  const [value, setValue] = useState('');
+  const [formInputs, setFormInputs] = useState({
+    address: '',
+    phoneNum: '',
+    payValue: ''
+  })
 
   function changeValue(e) {
     setValue(e.target.value);
@@ -55,91 +56,93 @@ const Form = ({ items, countById, totalItems, onClickClearCart, totalPrice, isMo
         <View style={styles.emailFormWrapper}>
           <Text style={styles.formTitle}>Ваш заказ:</Text>
           <Formik ref={form} onSubmit={sendEmail} style={styles.formTotal}>
-            <View style={styles.orderListWrapper}>
-              {items.map((i) => {
-                const count = countById(totalItems, i.id, i.activeSize);
-                return (
+            <View>
+              <View style={styles.orderListWrapper}>
+                {items.map((i) => {
+                  const count = countById(totalItems, i.id, i.activeSize);
+                  return (
+                    <TextInput
+                      key={i.id}
+                      style={styles.hiddenInput}
+                      name={i.id}
+                      value={`${i.title} | ${i.activeSize} | ${i.activePrice} ₽ | x ${count}шт.`}
+                    />
+                  );
+                })}
+              </View>
+              <View style={styles.orderInputsWrapper}>
+                <TextInput
+                  style={styles.hiddenInput}
+                  type="text"
+                  name="message"
+                  value={`На сумму: ${totalPrice} ₽`}
+                />
+                <Text>Введите ваш адрес:</Text>
+                <View style={styles.inpValid}>
                   <TextInput
-                    key={i.id}
-                    style={styles.hiddenInput}
-                    name={i.id}
-                    value={`${i.title} | ${i.activeSize} | ${i.activePrice} ₽ | x ${count}шт.`}
+                    required
+                    style={styles.orderInput}
+                    onChangeText={handleAddressChange}
+                    name="address"
+                    placeholder="ул. Горького, 54"
                   />
-                );
-              })}
-            </View>
-            <View style={styles.orderInputsWrapper}>
-              <TextInput
-                style={styles.hiddenInput}
-                type="text"
-                name="message"
-                value={`На сумму: ${totalPrice} ₽`}
-              />
-              <label>Введите ваш адрес:</label>
-              <View style={styles.inpValid}>
-                <TextInput
-                  required
-                  style={styles.orderInput}
-                  onChangeText={handleAddressChange}
-                  name="address"
-                  placeholder="ул. Горького, 54"
-                />
-                {!address && <p>Поле не заполнено</p>}
-              </View>
-              <label>Введите ваш номер телефона:</label>
-              <View style={styles.inpValid}>
-                <TextInput
-                  required
-                  style={styles.orderInput}
-                  onChangeText={handlePhoneNumChange}
-                  ref={inputTel}
-                  placeholder="+7 (978) 704 88 06"
-                  name="telephone"
-                  keyboardType="numeric"
-                />
-                {!phoneNum && <p>Поле не заполнено</p>}
-              </View>
-              <Text>Спооб оплаты:</Text>
-              <View style="payment" name="checkbox">
-                <View style="payment_method">
-                  <TextInput
-                    type="radio"
-                    onChange={changeValue}
-                    value="Наличные"
-                    name="cash"
-                    id="cash"
-                    checked={value === 'Наличные' ? true : false}
-                  />{' '}
-                  <Text style={styles.labelPay} for="cash">
-                    Наличные
-                  </Text>
+                  {!address && <Text>Поле не заполнено</Text>}
                 </View>
-                <View style={styles.paymentMethod}>
+                <Text>Введите ваш номер телефона:</Text>
+                <View style={styles.inpValid}>
                   <TextInput
-                    type="radio"
-                    onChange={changeValue}
-                    value="Карта"
-                    name="cart"
-                    id="cart"
-                    checked={value === 'Карта' ? true : false}
-                  />{' '}
-                  <Text style={styles.labelPay} for="cart">
-                    Карта
-                  </Text>
+                    required
+                    style={styles.orderInput}
+                    onChangeText={handlePhoneNumChange}
+                    ref={inputTel}
+                    placeholder="+7 (978) 704 88 06"
+                    name="telephone"
+                    keyboardType="numeric"
+                  />
+                  {!phoneNum && <Text>Поле не заполнено</Text>}
+                </View>
+                <Text>Спооб оплаты:</Text>
+                <View style="payment" name="checkbox">
+                  <View style="payment_method">
+                    <TextInput
+                      type="radio"
+                      onChange={changeValue}
+                      value="Наличные"
+                      name="cash"
+                      id="cash"
+                      checked={value === 'Наличные' ? true : false}
+                    />
+                    <Text style={styles.labelPay}>
+                      Наличные
+                    </Text>
+                  </View>
+                  <View style={styles.paymentMethod}>
+                    <TextInput
+                      type="radio"
+                      onChange={changeValue}
+                      value="Карта"
+                      name="cart"
+                      id="cart"
+                      checked={value === 'Карта' ? true : false}
+                    />
+                    <Text style={styles.labelPay}>
+                      Карта
+                    </Text>
+                  </View>
                 </View>
               </View>
+              <Button
+                type="submit"
+                title="Отправить"
+                disabled={!address}
+                style={styles.btnOrder}
+                onClick={() => {
+                  setTimeout(() => {
+                    onClickClearCart();
+                    setIsOrder(false);
+                  }, 500);
+                }}/>
             </View>
-            <Button
-              type="submit"
-              title="Отправить"
-              disabled={!address}
-              style={styles.btnOrder}
-              onClick={() => {
-                setTimeout(() => {
-                  onClickClearCart();
-                  setIsOrder(false);
-                }, 500);
-              }}/>
           </Formik>
         </View>
       </View>

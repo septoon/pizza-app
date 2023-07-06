@@ -6,7 +6,6 @@ import { clearPizzaCartAC, removePizzaAC } from '../../../../redux/cart-reducer'
 import { createSelector } from 'reselect';
 import EmptyCartLogo from '../../../../assets/img/empty-cart.svg'
 
-import Modal from "react-native-modal";
 import Form from './Form/Form';
 
 const selectCart = state => state.cart;
@@ -50,8 +49,6 @@ export default function Cart({ navigation }) {
     }, 0);
   };
 
-  const [isOrder, setIsOrder] = useState(false);
-
   const onClickRemovePizza = (pizzaObj) => {
     dispatch(removePizzaAC(pizzaObj));
   };
@@ -62,17 +59,6 @@ export default function Cart({ navigation }) {
     <View style={ styles.cartWrapper }>
       <View style={ styles.content }>
         <View style={ styles.containerCart }>
-          {isOrder && (
-            <Form
-              setIsOrder={setIsOrder}
-              onClickClearCart={onClickClearCart}
-              countById={countById}
-              totalItems={items}
-              items={uniqueProducts}
-              totalCount={totalCount}
-              totalPrice={totalPrice}
-            />
-          )}
           <View style={styles.cart}>
             {items.length ? (
               <>
@@ -137,7 +123,15 @@ export default function Cart({ navigation }) {
                       }} title='Вернуться назад' />
                     <View style={styles.payBtn}>
                       <Button style={styles.btnOrder} onPress={toggleModal} title='Заказать' />
-                      <Form isModalVisible={isModalVisible} toggleModal={toggleModal}  />
+                      <Form onClickClearCart={onClickClearCart}
+                            countById={countById}
+                            totalItems={items}
+                            items={uniqueProducts} 
+                            totalCount={totalCount} 
+                            totalPrice={totalPrice} 
+                            isModalVisible={isModalVisible} 
+                            toggleModal={toggleModal}  
+                      />
                     </View>
                   </View>
                 </View>

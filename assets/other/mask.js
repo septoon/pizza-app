@@ -1,48 +1,45 @@
-const mask = (selector) => {
+import { useRef } from 'react';
+import { TextInput } from 'react-native';
 
-  let setCursorPosition = (pos, elem) => {
-    elem.focus()
+const Mask = () => {
+  const inputRef = useRef(null);
 
-    if (elem.setSelectionRange) {
-      elem.setSelectionRange(pos, pos)
-    } else if (elem.createTextRange) {
-      let range = elem.createTextRange()
+  const setCursorPosition = (pos, elem) => {
+    elem.focus();
+    elem.setNativeProps({ selection: { start: pos, end: pos } });
+  };
 
-      range.collapse(true)
-      range.moveEnd('character', pos)
-      range.moveStart('character', pos)
-      range.select()
-    }
-  }
-
-  function createMask(event) {
+  const createMask = (event) => {
     let matrix = '+7 (___) ___ __ __',
-        i = 0,
-        def = matrix.replace(/\D/g, ''),
-        val = this.value.replace(/\D/g, '')
+      i = 0,
+      def = matrix.replace(/\D/g, ''),
+      val = event.nativeEvent.text.replace(/\D/g, '');
 
     if (def.length >= val.length) {
-      val = def
+      val = def;
     }
 
-    this.value = matrix.replace(/./g, function(a) {
-      return /[_\d]/.test(a) && i < val.length ? val.charAt(i++) : i >= val.length ? '' : a
-    })
+    inputRef.current.value = matrix.replace(/./g, function (a) {
+      return /[_\d]/.test(a) && i < val.length ? val.charAt(i++) : i >= val.length ? '' : a;
+    });
 
     if (event.type === 'blur') {
-      if (this.value.length === 2) {
-        this.value = ''
+      if (inputRef.current.value.length === 2) {
+        inputRef.current.value = '';
       }
     } else {
-      setCursorPosition(this.value.length, this)
+      setCursorPosition(inputRef.current.value.length, inputRef.current);
     }
-  }
+  };
 
-  let input = selector.current
+  return (
+    <TextInput
+      ref={inputRef}
+      onChange={createMask}
+      onFocus={createMask}
+      onBlur={createMask}
+    />
+  );
+};
 
-    input.addEventListener('input', createMask)
-    input.addEventListener('focus', createMask)
-    input.addEventListener('blur', createMask)
-}
-
-export default mask
+export default Mask;
