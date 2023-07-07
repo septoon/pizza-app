@@ -7,9 +7,7 @@ import { CheckBox } from 'react-native-elements'
 import mask from '../../../../../assets/other/mask';
 
 const Form = ({ items, countById, totalItems, onClickClearCart, totalPrice, isModalVisible, toggleModal }) => {
-
-  const form = React.forwardRef();
-
+  const form = useRef()
   const [selectedValue, setSelectedValue] = useState('Наличные');
 
   const [address, setAddress] = useState("");
@@ -22,21 +20,6 @@ const Form = ({ items, countById, totalItems, onClickClearCart, totalPrice, isMo
   const handlePhoneNumChange = (value) => {
     setPhoneNum(value);
   };
-  
-
-  const sendEmail = (e) => {
-    e.preventDefault();
-
-    emailjs.sendForm('gmail', 'template_u0d7yw8', form.current, 'ekXJl3cQ3snFLGpWZ').then(
-      (result) => {
-        console.log(result.text);
-      },
-      (error) => {
-        console.log(error.text);
-      },
-    );
-  };
-
 
   return (
     <Modal
@@ -51,8 +34,16 @@ const Form = ({ items, countById, totalItems, onClickClearCart, totalPrice, isMo
 
         <View style={styles.emailFormWrapper}>
           <Text style={styles.formTitle}>Ваш заказ:</Text>
-          <Formik onSubmit={sendEmail} style={styles.formTotal}>
-            <View>
+          <Formik onSubmit={() => {
+                        emailjs.sendForm('gmail', 'template_u0d7yw8', form.current, 'awG9gyXY-fwf4wtHgkhRj')
+                        .then((result) => {
+                            console.log(result.text);
+                        }, (error) => {
+                            console.log(error.text);
+                        })
+                      }}
+                  style={styles.formTotal}>
+            <View ref={form}>
               <View style={styles.orderListWrapper}>
                 {items.map((i) => {
                   const count = countById(totalItems, i.id, i.activeSize);
@@ -131,7 +122,7 @@ const Form = ({ items, countById, totalItems, onClickClearCart, totalPrice, isMo
                 onPress={() => {
                   setTimeout(() => {
                     onClickClearCart();
-                    console.log(`${address}, ${phoneNum}, ${selectedValue}`)
+                    console.log(form.current)
                   }, 500);
                 }}/>
             </View>
