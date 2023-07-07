@@ -2,29 +2,27 @@ import React, { useRef, useState } from 'react';
 import emailjs from 'emailjs-com';
 import { Button, Image, Modal, StyleSheet, Text, TextInput, View } from 'react-native';
 import { Formik } from 'formik';
+import { CheckBox } from 'react-native-elements'
+
 import mask from '../../../../../assets/other/mask';
 
 const Form = ({ items, countById, totalItems, onClickClearCart, totalPrice, isModalVisible, toggleModal }) => {
-  const form = useRef();
-  const inputTel = useRef();
 
-  const [formInputs, setFormInputs] = useState({
-    address: '',
-    phoneNum: '',
-    payValue: ''
-  })
+  const form = React.forwardRef();
 
-  function changeValue(e) {
-    setValue(e.target.value);
-  }
+  const [selectedValue, setSelectedValue] = useState('Наличные');
 
-  const handleAddressChange = (event) => {
-    setAddress(event.target.value);
+  const [address, setAddress] = useState("");
+  const [phoneNum, setPhoneNum] = useState("");
+
+  const handleAddressChange = (value) => {
+    setAddress(value);
   };
 
-  const handlePhoneNumChange = (event) => {
-    setPhoneNum(event.target.value);
+  const handlePhoneNumChange = (value) => {
+    setPhoneNum(value);
   };
+  
 
   const sendEmail = (e) => {
     e.preventDefault();
@@ -39,23 +37,21 @@ const Form = ({ items, countById, totalItems, onClickClearCart, totalPrice, isMo
     );
   };
 
-  React.useEffect(() => {
-    mask(inputTel);
-  }, []);
 
   return (
     <Modal
-      isVisible={isModalVisible}
+      visible={isModalVisible}
       style={styles.modal}
       onSwipeComplete={toggleModal}
       swipeDirection="down"
+      animationType="slide"
       onBackdropPress={toggleModal}>
       <View style={styles.emailForm}>
-        <Button title="Назад!!" onPress={toggleModal} />
+        <Button title="< Назад" onPress={toggleModal} />
 
         <View style={styles.emailFormWrapper}>
           <Text style={styles.formTitle}>Ваш заказ:</Text>
-          <Formik ref={form} onSubmit={sendEmail} style={styles.formTotal}>
+          <Formik onSubmit={sendEmail} style={styles.formTotal}>
             <View>
               <View style={styles.orderListWrapper}>
                 {items.map((i) => {
@@ -82,6 +78,7 @@ const Form = ({ items, countById, totalItems, onClickClearCart, totalPrice, isMo
                   <TextInput
                     required
                     style={styles.orderInput}
+                    value={address}
                     onChangeText={handleAddressChange}
                     name="address"
                     placeholder="ул. Горького, 54"
@@ -93,8 +90,8 @@ const Form = ({ items, countById, totalItems, onClickClearCart, totalPrice, isMo
                   <TextInput
                     required
                     style={styles.orderInput}
+                    value={phoneNum}
                     onChangeText={handlePhoneNumChange}
-                    ref={inputTel}
                     placeholder="+7 (978) 704 88 06"
                     name="telephone"
                     keyboardType="numeric"
@@ -104,30 +101,25 @@ const Form = ({ items, countById, totalItems, onClickClearCart, totalPrice, isMo
                 <Text>Спооб оплаты:</Text>
                 <View style="payment" name="checkbox">
                   <View style="payment_method">
-                    <TextInput
-                      type="radio"
-                      onChange={changeValue}
-                      value="Наличные"
-                      name="cash"
-                      id="cash"
-                      checked={value === 'Наличные' ? true : false}
-                    />
-                    <Text style={styles.labelPay}>
-                      Наличные
-                    </Text>
+                  <CheckBox
+                    center
+                    title='Наличные'
+                    checkedIcon='dot-circle-o'
+                    uncheckedIcon='circle-o'
+                    checked={selectedValue === 'Наличные'}
+                    onPress={() => setSelectedValue('Наличные')}
+                  />
+
                   </View>
                   <View style={styles.paymentMethod}>
-                    <TextInput
-                      type="radio"
-                      onChange={changeValue}
-                      value="Карта"
-                      name="cart"
-                      id="cart"
-                      checked={value === 'Карта' ? true : false}
-                    />
-                    <Text style={styles.labelPay}>
-                      Карта
-                    </Text>
+                  <CheckBox
+                    center
+                    title='Карта'
+                    checkedIcon='dot-circle-o'
+                    uncheckedIcon='circle-o'
+                    checked={selectedValue === 'Карта'}
+                    onPress={() => setSelectedValue('Карта')}
+                  />
                   </View>
                 </View>
               </View>
@@ -136,10 +128,10 @@ const Form = ({ items, countById, totalItems, onClickClearCart, totalPrice, isMo
                 title="Отправить"
                 disabled={!address}
                 style={styles.btnOrder}
-                onClick={() => {
+                onPress={() => {
                   setTimeout(() => {
                     onClickClearCart();
-                    setIsOrder(false);
+                    console.log(`${address}, ${phoneNum}, ${selectedValue}`)
                   }, 500);
                 }}/>
             </View>
