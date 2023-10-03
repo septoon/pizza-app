@@ -1,6 +1,7 @@
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import emailjs from 'emailjs-com';
-import { Button, Image, Modal, StyleSheet, Text, TextInput, View } from 'react-native';
+import email from 'react-native-email';
+import { Button, Image, Linking, Modal, StyleSheet, Text, TextInput, View } from 'react-native';
 import { Formik } from 'formik';
 import { CheckBox } from 'react-native-elements'
 
@@ -8,18 +9,44 @@ import mask from '../../../../../assets/other/mask';
 
 const Form = ({ items, countById, totalItems, onClickClearCart, totalPrice, isModalVisible, toggleModal }) => {
   const form = useRef()
-  const [selectedValue, setSelectedValue] = useState('Наличные');
 
   const [address, setAddress] = useState("");
   const [phoneNum, setPhoneNum] = useState("");
+  const [body, setBody] = useState({});
 
-  const handleAddressChange = (value) => {
+  const [isSelected, setSelection] = useState(false);
+
+  const [checkValue, setCheckValue] = useState('');
+   
+  const onAddressChange = (value) => {
     setAddress(value);
   };
 
-  const handlePhoneNumChange = (value) => {
+  const onPhoneNumChange = (value) => {
     setPhoneNum(value);
   };
+
+
+
+  const sendEmail = (e) => {
+
+    e.preventDefault()
+    
+    setBody({
+      "Адрес": address,
+      "Номер телефона": phoneNum
+    })
+
+    emailjs.sendForm('gmail', 'template_u0d7yw8', form.current, 'puDAdUDMwIkZMM87m')
+      .then((result) => {
+          console.log(result.text);
+      }, (error) => {
+          console.log(error.text);
+      })
+  }
+
+  const [ loading, setLoading ] = useState(false);
+
 
   return (
     <Modal
@@ -34,16 +61,8 @@ const Form = ({ items, countById, totalItems, onClickClearCart, totalPrice, isMo
 
         <View style={styles.emailFormWrapper}>
           <Text style={styles.formTitle}>Ваш заказ:</Text>
-          <Formik onSubmit={() => {
-                        emailjs.sendForm('gmail', 'template_u0d7yw8', form.current, 'awG9gyXY-fwf4wtHgkhRj')
-                        .then((result) => {
-                            console.log(result.text);
-                        }, (error) => {
-                            console.log(error.text);
-                        })
-                      }}
-                  style={styles.formTotal}>
-            <View ref={form}>
+            <Formik initialValues={{ email: '' }}
+              onSubmit={values => console.log(values)} ref={form} style={styles.formTotal}>
               <View style={styles.orderListWrapper}>
                 {items.map((i) => {
                   const count = countById(totalItems, i.id, i.activeSize);
@@ -70,7 +89,7 @@ const Form = ({ items, countById, totalItems, onClickClearCart, totalPrice, isMo
                     required
                     style={styles.orderInput}
                     value={address}
-                    onChangeText={handleAddressChange}
+                    onChangeText={onAddressChange}
                     name="address"
                     placeholder="ул. Горького, 54"
                   />
@@ -82,7 +101,7 @@ const Form = ({ items, countById, totalItems, onClickClearCart, totalPrice, isMo
                     required
                     style={styles.orderInput}
                     value={phoneNum}
-                    onChangeText={handlePhoneNumChange}
+                    onChangeText={onPhoneNumChange}
                     placeholder="+7 (978) 704 88 06"
                     name="telephone"
                     keyboardType="numeric"
@@ -97,8 +116,8 @@ const Form = ({ items, countById, totalItems, onClickClearCart, totalPrice, isMo
                     title='Наличные'
                     checkedIcon='dot-circle-o'
                     uncheckedIcon='circle-o'
-                    checked={selectedValue === 'Наличные'}
-                    onPress={() => setSelectedValue('Наличные')}
+                    value={isSelected}
+                    onValueChange={setSelection}
                   />
 
                   </View>
@@ -108,8 +127,8 @@ const Form = ({ items, countById, totalItems, onClickClearCart, totalPrice, isMo
                     title='Карта'
                     checkedIcon='dot-circle-o'
                     uncheckedIcon='circle-o'
-                    checked={selectedValue === 'Карта'}
-                    onPress={() => setSelectedValue('Карта')}
+                    value={isSelected}
+                    onValueChange={setSelection}
                   />
                   </View>
                 </View>
@@ -122,11 +141,11 @@ const Form = ({ items, countById, totalItems, onClickClearCart, totalPrice, isMo
                 onPress={() => {
                   setTimeout(() => {
                     onClickClearCart();
-                    console.log(form.current)
+                    console.log(body)
                   }, 500);
                 }}/>
-            </View>
-          </Formik>
+                />
+            </Formik>
         </View>
       </View>
     </Modal>

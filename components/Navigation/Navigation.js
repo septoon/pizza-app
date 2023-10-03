@@ -30,11 +30,11 @@ export default function Navigation() {
             if (rn === catalogName) {
               iconName = focused ? 'home' : 'home-outline';
             } else if (rn === cartName) {
-              iconName = focused ? 'list' : 'list-outline';
+              iconName = focused ? 'cart' : 'cart-outline';
             } else if (rn === teaName) {
-              iconName = focused ? 'settings' : 'settings-outline';
+              iconName = focused ? 'list' : 'list-outline';
             } else if (rn === deliveryName) {
-              iconName = focused ? 'settings' : 'settings-outline';
+              iconName = focused ? 'list' : 'list-outline';
             }
         
             return <Ionicons name={iconName} size={size} color={color} />;
@@ -47,9 +47,9 @@ export default function Navigation() {
         >
 
         <Tab.Screen name={catalogName} options={{ headerShown: false }} component={Catalog} />
-        <Tab.Screen name={cartName} options={{ headerShown: false }} component={Cart} />
         <Tab.Screen name={teaName} options={{ headerShown: false }} component={Tea} />
         <Tab.Screen name={deliveryName} options={{ headerShown: false }} component={Delivery} />
+        <Tab.Screen name={cartName} options={{ headerShown: false }} component={Cart} />
 
       </Tab.Navigator>
     </NavigationContainer>

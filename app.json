@@ -7,7 +7,7 @@
     "icon": "./assets/img/pizza.png",
     "userInterfaceStyle": "light",
     "splash": {
-      "image": "./assets/img/pizza.png",
+      "image": "./assets/img/splashScreen.png",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },

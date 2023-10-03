@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Button, Image, StyleSheet, Text, View, Alert, Dimensions } from 'react-native';
+import { Button, Image, StyleSheet, Text, View, Alert, Dimensions, ScrollView } from 'react-native';
 import CartItem from './CartItem';
 import { useDispatch, useSelector } from 'react-redux';
 import { clearPizzaCartAC, removePizzaAC } from '../../../../redux/cart-reducer';
@@ -80,7 +80,7 @@ export default function Cart({ navigation }) {
                       ])
                     }} title="Очистить корзину" />
                 </View>
-                <View style={styles.contentItems}>
+                <ScrollView style={styles.contentItems}>
                   {uniqueProducts.map((item, index) => {
                     const result = items.filter(
                       (elem) => elem.id === item.id && elem.activeSize === item.activeSize,
@@ -105,7 +105,7 @@ export default function Cart({ navigation }) {
                       />
                     );
                   })}
-                </View>
+                </ScrollView>
                 <View style={styles.cartBottom}>
                   <View style={styles.cartBottomDetails}>
                     <Text style={styles.cartTotalCount}>
@@ -162,5 +162,9 @@ const styles = StyleSheet.create({
     height: '100%',
     justifyContent: 'center',
     alignItems: 'center',
+  },
+  contentItems: {
+    width: '100%',
+    height: '50%'
   },
 });
