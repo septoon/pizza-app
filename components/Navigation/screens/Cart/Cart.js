@@ -8,6 +8,8 @@ import EmptyCartLogo from '../../../../assets/img/empty-cart.svg'
 
 import Form from './Form/Form';
 
+import axios from 'axios';
+
 const selectCart = state => state.cart;
 const selectCartData = createSelector(
   [selectCart],
@@ -24,6 +26,24 @@ export default function Cart({ navigation }) {
   const toggleModal = () => {
     setModalVisible(!isModalVisible);
   };
+  
+  const sendOrder = async(orderItems, pizzas) => {
+    let message = `
+        Список пицц: ${pizzas.toString()}
+        ${orderItems.price}
+        Адрес Доставки: ${orderItems.address}
+        Номер телефона: ${orderItems.phoneNumber}
+      `
+    await axios.post ('https://api.telegram.org/bot6449386041:AAGzqG0r-R9AJFcY0EeV0vv6XBjFNDx_7xE/sendMessage', {
+      chat_id: "-1001929441485",
+      text: message
+    }).then((res) => {
+      onClickClearCart()
+      setModalVisible(false)
+    }).catch((err) => {
+      console.warn(err)
+    })
+  }
 
   const dispatch = useDispatch();
   const { items, totalCount, totalPrice } = useSelector(selectCartData);
@@ -123,14 +143,14 @@ export default function Cart({ navigation }) {
                       }} title='Вернуться назад' />
                     <View style={styles.payBtn}>
                       <Button style={styles.btnOrder} onPress={toggleModal} title='Заказать' />
-                      <Form onClickClearCart={onClickClearCart}
-                            countById={countById}
+                      <Form countById={countById}
                             totalItems={items}
                             items={uniqueProducts} 
                             totalCount={totalCount} 
                             totalPrice={totalPrice} 
                             isModalVisible={isModalVisible} 
-                            toggleModal={toggleModal}  
+                            toggleModal={toggleModal}
+                            sendOrder={sendOrder}
                       />
                     </View>
                   </View>
