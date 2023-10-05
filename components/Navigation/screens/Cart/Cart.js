@@ -26,13 +26,17 @@ export default function Cart({ navigation }) {
   const toggleModal = () => {
     setModalVisible(!isModalVisible);
   };
+
+  let ordersCount = 0
   
-  const sendOrder = async(orderItems, pizzas) => {
+  const sendOrder = async(orderItems, pizzas, pay) => {
     let message = `
-        Список пицц: ${pizzas.toString()}
+        Заказ # ${ordersCount+1}
+        ${pizzas.toString()}
         ${orderItems.price}
         Адрес Доставки: ${orderItems.address}
         Номер телефона: ${orderItems.phoneNumber}
+        Способ оплаты: ${pay}
       `
     await axios.post ('https://api.telegram.org/bot6449386041:AAGzqG0r-R9AJFcY0EeV0vv6XBjFNDx_7xE/sendMessage', {
       chat_id: "-1001929441485",

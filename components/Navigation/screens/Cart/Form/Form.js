@@ -3,14 +3,14 @@ import emailjs from 'emailjs-com';
 import email from 'react-native-email';
 import { Button, Image, Linking, Modal, StyleSheet, Text, TextInput, View } from 'react-native';
 import { Formik } from 'formik';
-import { CheckBox } from 'react-native-elements'
+import { RadioButton } from 'react-native-paper'
 
 import mask from '../../../../../assets/other/mask';
 
 const Form = ({ items, countById, totalItems, sendOrder, totalPrice, isModalVisible, toggleModal }) => {
 
-  const [isSelected, setSelection] = useState(false);
-
+  const [payValue, setValue] = React.useState('Наличные');
+  
   const pizzasList = items.map((i) => {
     const count = countById(totalItems, i.id, i.activeSize);
     const value = `${i.title} | ${i.activeSize} | ${i.activePrice} ₽ | x ${count}шт.`
@@ -30,8 +30,8 @@ const Form = ({ items, countById, totalItems, sendOrder, totalPrice, isModalVisi
 
         <View style={styles.emailFormWrapper}>
           <Text style={styles.formTitle}>Ваш заказ:</Text>
-            <Formik initialValues={{ price: `На сумму: ${totalPrice} ₽`, address: '', phoneNumber: '', checked: [] }}
-              onSubmit={values => sendOrder(values, pizzasList.toString())} style={styles.formTotal}>
+            <Formik initialValues={{ price: `На сумму: ${totalPrice} ₽`, address: '', phoneNumber: '' }}
+              onSubmit={values => sendOrder(values, pizzasList.toString(), payValue)} style={styles.formTotal}>
                 {(props) => (
                   <>
                     <View style={styles.orderListWrapper}>
@@ -80,25 +80,10 @@ const Form = ({ items, countById, totalItems, sendOrder, totalPrice, isModalVisi
                       </View>
                       <Text>Спооб оплаты:</Text>
                       <View style="payment" name="checkbox">
-                        <View style="payment_method">
-                        <CheckBox
-                          title='Наличные'
-                          checkedIcon='dot-circle-o'
-                          uncheckedIcon='circle-o'
-                          value={props.values.cash}
-                          onValueChange={setSelection}
-                        />
-
-                        </View>
-                        <View style={styles.paymentMethod}>
-                        <CheckBox
-                          title='Карта'
-                          checkedIcon='dot-circle-o'
-                          uncheckedIcon='circle-o'
-                          value={props.values.cash}
-                          onValueChange={setSelection}
-                        />
-                        </View>
+                        <RadioButton.Group onValueChange={newValue => setValue(newValue)} value={payValue}>
+                          <RadioButton.Item label="Наличные" value="Наличные" />
+                          <RadioButton.Item label="Карта" value="Карта" />
+                        </RadioButton.Group>
                       </View>
                     </View>
                     <Button
