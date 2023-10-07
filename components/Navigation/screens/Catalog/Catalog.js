@@ -7,6 +7,7 @@ import catalogList from '../../../../assets/json/catalog-list'
 import { addCatalogList, toggleIsActive } from '../../../../redux/catalog-reducer';
 import { addPizzaToCartAC } from '../../../../redux/cart-reducer';
 import { createSelector } from 'reselect';
+import { styles } from './CatalogStyles';
 
 const catalogDataSelector = state => state.catalogPage.catalogData;
 const isActiveSelector = state => state.catalogPage.isActive;
@@ -52,10 +53,3 @@ export default function Catalog() {
     </ScrollView>
   );
 }
-
-const styles = StyleSheet.create({
-  catalogWrapper: {
-    width: '100%',
-    height: '100%',
-  },
-});

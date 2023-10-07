@@ -1,6 +1,4 @@
 import React, { useEffect, useRef, useState } from 'react';
-import emailjs from 'emailjs-com';
-import email from 'react-native-email';
 import { Button, Image, Linking, Modal, StyleSheet, Text, TextInput, View } from 'react-native';
 import { Formik } from 'formik';
 import { RadioButton } from 'react-native-paper'
@@ -30,7 +28,7 @@ const Form = ({ items, countById, totalItems, sendOrder, totalPrice, isModalVisi
 
         <View style={styles.emailFormWrapper}>
           <Text style={styles.formTitle}>Ваш заказ:</Text>
-            <Formik initialValues={{ price: `На сумму: ${totalPrice} ₽`, address: '', phoneNumber: '' }}
+            <Formik initialValues={{ price: `На сумму: ${totalPrice} ₽`, address: '', phoneNumber: '', comment: '' }}
               onSubmit={values => sendOrder(values, pizzasList.toString(), payValue)} style={styles.formTotal}>
                 {(props) => (
                   <>
@@ -76,6 +74,17 @@ const Form = ({ items, countById, totalItems, sendOrder, totalPrice, isModalVisi
                           placeholder="+7 (978) 704 88 06"
                           name="telephone"
                           keyboardType="numeric"
+                        />
+                      </View>
+                      <Text>Добавьте комментарий:</Text>
+                      <View style={styles.inpValid}>
+                        <TextInput
+                          required
+                          style={styles.orderInput}
+                          value={props.values.comment}
+                          onChangeText={props.handleChange('comment')}
+                          name="comment"
+                          placeholder="Например: заезд, номер подъезда..."
                         />
                       </View>
                       <Text>Спооб оплаты:</Text>

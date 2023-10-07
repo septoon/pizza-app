@@ -1,5 +1,6 @@
 import { Image, StyleSheet, Text, TouchableHighlight, View } from 'react-native';
 import React from 'react';
+import { styles } from './CartItemStyles';
 
 export default function CartItem({
   id,
@@ -52,14 +53,3 @@ export default function CartItem({
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  pizzaBlockImage: {
-    width: 50,
-    height: 50
-  },
-  closeCart: {
-    width: 15,
-    height: 15
-  },
-});

@@ -1,5 +1,6 @@
 import { createRef, useState } from 'react';
-import { Button, Image, StyleSheet, Text, View } from 'react-native';
+import { Button, Image, Pressable, Text, View } from 'react-native';
+import { styles } from './CatalogItemStyles';
 
 export default function CatalogItem({ id, image, title, composition, prices, isChange, onClickAddPizza }) {
   const priceHolder = createRef()
@@ -47,50 +48,11 @@ export default function CatalogItem({ id, image, title, composition, prices, isC
 
         <View style={styles.priceHolder}>
           <Text ref={priceHolder} style={styles.priceCount}>{activePrice} ₽</Text>
-          <Button onPress={ onAddPizza } style={styles.btnOrder} title='+ Добавить' />
+          <Pressable style={styles.btnOrder} onPress={ onAddPizza }>
+            <Text style={styles.text}>+ Добавить</Text>
+          </Pressable>
         </View>
       </View>
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  catalogItem: {
-    width: '95%',
-  },
-  catalogItemBlock: {
-    width: '100%',
-    alignItems: 'center'
-  },
-  image: {
-    width: '100%',
-    height: 250,
-  },
-  name: {
-    fontSize: 18
-  },
-  size: {
-    width: '100%',
-    flexDirection: 'row',
-    justifyContent: 'space-around'
-  },
-  sizeItem: {
-    flex: 1,
-    color: '#4f4d55',
-    borderWidth: 1,
-    borderColor: '#4f4d55',
-  },
-  packingItem: {
-    width: '100%',
-    textAlign: 'center',
-    padding: 5,
-    borderRadius: 15,
-    backgroundColor: '#eee'
-  },
-  priceHolder: {
-    width: '100%',
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-  }
-});

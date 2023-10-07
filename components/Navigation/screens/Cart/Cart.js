@@ -9,6 +9,7 @@ import EmptyCartLogo from '../../../../assets/img/empty-cart.svg'
 import Form from './Form/Form';
 
 import axios from 'axios';
+import { styles } from './CartStyles';
 
 const selectCart = state => state.cart;
 const selectCartData = createSelector(
@@ -30,8 +31,10 @@ export default function Cart({ navigation }) {
   let ordersCount = 0
   
   const sendOrder = async(orderItems, pizzas, pay) => {
+    ordersCount += 1
+    
     let message = `
-        Заказ # ${ordersCount+1}
+        Заказ # ${ordersCount}
         ${pizzas.toString()}
         ${orderItems.price}
         Адрес Доставки: ${orderItems.address}
@@ -179,16 +182,3 @@ export default function Cart({ navigation }) {
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  cartWrapper: {
-    width: '100%',
-    height: '100%',
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  contentItems: {
-    width: '100%',
-    height: '50%'
-  },
-});
