@@ -37,7 +37,7 @@ export default function CartItem({
         </View>
       </View>
       <View style={styles.cartItemPrice}>
-        <Text style={styles.priceText}>{price}₽</Text>
+        <Text style={styles.priceText}>{calculatePrice}₽</Text>
       </View>
       <View style={styles.cartItemRemove}>
         <TouchableHighlight onPress={() => {

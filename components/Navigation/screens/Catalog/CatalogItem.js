@@ -8,6 +8,8 @@ export default function CatalogItem({ id, image, title, composition, prices, isC
   const [activeSize, setActiveSize] = useState('30 см')
   const [activePrice, setActivePrice] = useState(prices[0])
 
+  const [selectedButton, setSelectedButton] = useState(1);
+
   const onAddPizza = () => {
     const obj = {
       id, title, image, activePrice, activeSize
@@ -26,21 +28,39 @@ export default function CatalogItem({ id, image, title, composition, prices, isC
 
       <View style={styles.catalogItemBlock}>
         <View style={styles.size}>
-          <Button onPress={(e) => {
+          <Pressable style={[
+            styles.sizeItem,
+            selectedButton === 1 ? styles.sizeItemActive : null,
+          ]} onPress={(e) => {
               isChange = true
+              setSelectedButton(1)
               setActivePrice(prices[0])
               setActiveSize('30 см')
-            }} style={styles.sizeItem} title='Ø 30см' />
-          <Button onPress={(e) => {
+          }}>
+            <Text style={styles.sizeText}>Ø 30см</Text>
+          </Pressable>
+          <Pressable style={[
+            styles.sizeItem,
+            selectedButton === 2 ? styles.sizeItemActive : null,
+          ]} onPress={(e) => {
               isChange = true
+              setSelectedButton(2)
               setActivePrice(prices[1])
               setActiveSize('40 см')
-            }} style={styles.sizeItem} title='Ø 40см' />
-          <Button onPress={(e) => {
+          }}>
+            <Text style={styles.sizeText}>Ø 40см</Text>
+          </Pressable>
+          <Pressable style={[
+            styles.sizeItem,
+            selectedButton === 3 ? styles.sizeItemActive : null,
+          ]} onPress={(e) => {
               isChange = true
+              setSelectedButton(3)
               setActivePrice(prices[2])
               setActiveSize('50 см')
-            }} style={styles.sizeItem} title='Ø 50см' />
+          }}>
+            <Text style={styles.sizeText}>Ø 50см</Text>
+          </Pressable>
         </View>
 
         <Text style={styles.packingItem}>+40₽ к стоимости, за упаковку</Text>

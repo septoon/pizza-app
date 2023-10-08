@@ -32,12 +32,20 @@ export const styles = StyleSheet.create({
   },
   sizeItem: {
     flex: 1,
+    alignItems: 'center',
     fontSize: 18,
     fontWeight: 'bold',
     padding: 5,
+    borderRadius: 5,
+    borderWidth: 0.5,
+    borderColor: 'antiquewhite',
+    backgroundColor: 'floralwhite'
+  },
+  sizeItemActive: {
+    backgroundColor: '#FFDF8C'
+  },
+  sizeText: {
     color: '#4f4d55',
-    borderWidth: 1,
-    borderColor: '#4f4d55',
   },
   priceCount: {
     fontSize: 24
@@ -47,7 +55,7 @@ export const styles = StyleSheet.create({
     textAlign: 'center',
     padding: 5,
     borderRadius: 15,
-    backgroundColor: '#eee'
+    backgroundColor: 'floralwhite'
   },
   priceHolder: {
     width: '100%',

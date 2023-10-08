@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Button, Image, StyleSheet, Text, View, Alert, Dimensions, ScrollView } from 'react-native';
+import { Button, Image, StyleSheet, Text, View, Alert, Dimensions, ScrollView, Pressable } from 'react-native';
 import CartItem from './CartItem';
 import { useDispatch, useSelector } from 'react-redux';
 import { clearPizzaCartAC, removePizzaAC } from '../../../../redux/cart-reducer';
@@ -39,6 +39,7 @@ export default function Cart({ navigation }) {
         ${orderItems.price}
         Адрес Доставки: ${orderItems.address}
         Номер телефона: ${orderItems.phoneNumber}
+        Комментарий: ${orderItems.comment}
         Способ оплаты: ${pay}
       `
     await axios.post ('https://api.telegram.org/bot6449386041:AAGzqG0r-R9AJFcY0EeV0vv6XBjFNDx_7xE/sendMessage', {
@@ -145,11 +146,11 @@ export default function Cart({ navigation }) {
                     </Text>
                   </View>
                   <View style={styles.cartBottomButtons}>
-                      <Button style={backBtnStyle} onPress={() => {
-                        navigation.navigate('Catalog')
-                      }} title='Вернуться назад' />
+                      
                     <View style={styles.payBtn}>
-                      <Button style={styles.btnOrder} onPress={toggleModal} title='Заказать' />
+                      <Pressable style={styles.btnCartOrder} onPress={toggleModal}>
+                        <Text style={styles.backBtnText}>Перейти к оформлению</Text>
+                      </Pressable>
                       <Form countById={countById}
                             totalItems={items}
                             items={uniqueProducts} 
@@ -173,7 +174,10 @@ export default function Cart({ navigation }) {
                 </Text>
                   
                 <EmptyCartLogo style={styles.emptyCartLogo} /> 
-                <Button style={styles.backBtnStyle} onPress={() => navigation.navigate('Catalog')} title='Вернуться назад' />
+                <Pressable style={styles.backBtnStyle} onPress={() => {
+                  navigation.navigate('Catalog')}}>
+                  <Text style={styles.backBtnText}>Вернуться назад</Text>
+                </Pressable>
               </View>
              )}
           </View>

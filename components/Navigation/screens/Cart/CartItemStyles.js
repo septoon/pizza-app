@@ -12,7 +12,7 @@ export const styles = StyleSheet.create({
   cartItem: {
     flex: 1,
     width: '100%',
-    justifyContent: 'space-between',
+    justifyContent: 'space-around',
     alignItems: 'center',
     flexDirection: 'row'
   }

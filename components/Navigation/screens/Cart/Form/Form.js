@@ -1,13 +1,15 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { Button, Image, Linking, Modal, StyleSheet, Text, TextInput, View } from 'react-native';
+import { Button, Image, Linking, Modal, Pressable, StyleSheet, Text, TextInput, View } from 'react-native';
 import { Formik } from 'formik';
 import { RadioButton } from 'react-native-paper'
 
 import mask from '../../../../../assets/other/mask';
+import SlideButton from './SlideButton';
 
 const Form = ({ items, countById, totalItems, sendOrder, totalPrice, isModalVisible, toggleModal }) => {
 
   const [payValue, setValue] = React.useState('Наличные');
+
   
   const pizzasList = items.map((i) => {
     const count = countById(totalItems, i.id, i.activeSize);
@@ -25,10 +27,10 @@ const Form = ({ items, countById, totalItems, sendOrder, totalPrice, isModalVisi
       onBackdropPress={toggleModal}>
       <View style={styles.emailForm}>
         <Button title="< Назад" onPress={toggleModal} />
-
+        <SlideButton />
         <View style={styles.emailFormWrapper}>
           <Text style={styles.formTitle}>Ваш заказ:</Text>
-            <Formik initialValues={{ price: `На сумму: ${totalPrice} ₽`, address: '', phoneNumber: '', comment: '' }}
+            <Formik initialValues={{ price: `На сумму: ${totalPrice} ₽`, address: '', phoneNumber: '+7 ', comment: '' }}
               onSubmit={values => sendOrder(values, pizzasList.toString(), payValue)} style={styles.formTotal}>
                 {(props) => (
                   <>
@@ -74,7 +76,9 @@ const Form = ({ items, countById, totalItems, sendOrder, totalPrice, isModalVisi
                           placeholder="+7 (978) 704 88 06"
                           name="telephone"
                           keyboardType="numeric"
+                          maxLength={13}
                         />
+
                       </View>
                       <Text>Добавьте комментарий:</Text>
                       <View style={styles.inpValid}>
@@ -95,11 +99,9 @@ const Form = ({ items, countById, totalItems, sendOrder, totalPrice, isModalVisi
                         </RadioButton.Group>
                       </View>
                     </View>
-                    <Button
-                      type="submit"
-                      title="Отправить"
-                      style={styles.btnOrder}
-                      onPress={props.handleSubmit}/>
+                    <Pressable type="submit" style={styles.btnOrder} onPress={props.handleSubmit}>
+                      <Text style={styles.btnText}>Отправить</Text>
+                    </Pressable>
                   </>
                 )}
               
@@ -115,6 +117,8 @@ export default Form;
 const styles = StyleSheet.create({
   modal: {
     margin: 0,
+    paddingLeft: 5,
+    paddingRight: 5,
     justifyContent: 'flex-end',
     paddingTop: 100,
   },
@@ -124,5 +128,25 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
     borderTopLeftRadius: 15,
     borderTopRightRadius: 15,
+  },
+  btnOrder: {
+    width: '100%',
+    backgroundColor: '#fe5f1e',
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingVertical: 12,
+    paddingHorizontal: 18,
+    borderRadius: 4,
+    elevation: 3,
+    fontWeight: 400,
+    fontSize: 12,
+    borderRadius: 10
+  },
+  btnText: {
+    fontSize: 16,
+    lineHeight: 21,
+    fontWeight: 'bold',
+    letterSpacing: 0.25,
+    color: 'white',
   },
 });
