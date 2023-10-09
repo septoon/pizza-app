@@ -1,7 +1,8 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { Button, Image, Linking, Modal, Pressable, StyleSheet, Text, TextInput, View } from 'react-native';
+import { Button, Image, Linking, Modal, Pressable, ScrollView, StyleSheet, Text, TextInput, View } from 'react-native';
 import { Formik } from 'formik';
 import { RadioButton } from 'react-native-paper'
+import BackArrowBtn from '../../../../../assets/img/backArrow.svg'
 
 import mask from '../../../../../assets/other/mask';
 import SlideButton from './SlideButton';
@@ -26,7 +27,9 @@ const Form = ({ items, countById, totalItems, sendOrder, totalPrice, isModalVisi
       animationType="slide"
       onBackdropPress={toggleModal}>
       <View style={styles.emailForm}>
-        <Button title="< Назад" onPress={toggleModal} />
+        <Pressable type="submit" style={styles.formBackBtn} onPress={toggleModal}>
+          <BackArrowBtn />
+        </Pressable>
         <SlideButton />
         <View style={styles.emailFormWrapper}>
           <Text style={styles.formTitle}>Ваш заказ:</Text>
@@ -34,7 +37,7 @@ const Form = ({ items, countById, totalItems, sendOrder, totalPrice, isModalVisi
               onSubmit={values => sendOrder(values, pizzasList.toString(), payValue)} style={styles.formTotal}>
                 {(props) => (
                   <>
-                    <View style={styles.orderListWrapper}>
+                    <ScrollView style={styles.orderListWrapper}>
                       {items.map((i) => {
                         const count = countById(totalItems, i.id, i.activeSize);
                         
@@ -47,7 +50,7 @@ const Form = ({ items, countById, totalItems, sendOrder, totalPrice, isModalVisi
                           />
                         );
                       })}
-                    </View>
+                    </ScrollView>
                     <View style={styles.orderInputsWrapper}>
                       <TextInput
                         style={styles.hiddenInput}
@@ -100,7 +103,7 @@ const Form = ({ items, countById, totalItems, sendOrder, totalPrice, isModalVisi
                       </View>
                     </View>
                     <Pressable type="submit" style={styles.btnOrder} onPress={props.handleSubmit}>
-                      <Text style={styles.btnText}>Отправить</Text>
+                      <Text style={styles.btnText}>Заказать</Text>
                     </Pressable>
                   </>
                 )}
@@ -121,16 +124,28 @@ const styles = StyleSheet.create({
     paddingRight: 5,
     justifyContent: 'flex-end',
     paddingTop: 100,
+    backgroundColor: 'gray'
   },
   emailForm: {
-    flex: 1,
+    width: '95%',
+    alignSelf: 'center',
     paddingTop: 50,
     backgroundColor: 'white',
     borderTopLeftRadius: 15,
     borderTopRightRadius: 15,
   },
+  formBackBtn: {
+    width: 30,
+    height: 30,
+    marginBottom: 40,
+    marginTop: 10
+  },
+  payment: {
+    width: '100%',
+  },
   btnOrder: {
     width: '100%',
+    alignSelf: 'center',
     backgroundColor: '#fe5f1e',
     alignItems: 'center',
     justifyContent: 'center',

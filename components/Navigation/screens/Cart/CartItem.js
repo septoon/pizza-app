@@ -1,18 +1,20 @@
-import { Image, StyleSheet, Text, TouchableHighlight, View } from 'react-native';
+import { Image, Pressable, StyleSheet, Text, TouchableHighlight, View } from 'react-native';
 import React from 'react';
 import { styles } from './CartItemStyles';
+
+import TrashIcon from '../../../../assets/img/trashIcon.svg'
 
 export default function CartItem({
   id,
   image,
   title,
   activeSize,
-  activePrice,
+  result,
   price,
   count,
   onClickRemovePizza,
-  calculatePrice,
 }) {
+  result.forEach(item => price += parseInt(item.activePrice) + 40)
   const onRemovePizza = () => {
     const pizzaObj = {
       pizzaId: id,
@@ -37,18 +39,18 @@ export default function CartItem({
         </View>
       </View>
       <View style={styles.cartItemPrice}>
-        <Text style={styles.priceText}>{calculatePrice}₽</Text>
+        <Text style={styles.priceText}>{price}₽</Text>
       </View>
       <View style={styles.cartItemRemove}>
-        <TouchableHighlight onPress={() => {
+        <Pressable style={styles.closeCart} onPress={() => {
           const pizzaObj = {
             pizzaId: id,
             pizzaSize: activeSize,
           };
           onClickRemovePizza(pizzaObj);
         }}>
-          <Image source={require('../../../../assets/img/close.png')} style={styles.closeCart} />
-        </TouchableHighlight>
+          <TrashIcon />
+        </Pressable>
       </View>
     </View>
   );

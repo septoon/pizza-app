@@ -5,16 +5,16 @@ import { addTeaCardList } from '../../../../redux/teaCard-reducer';
 import teaCardList from '../../../../assets/json/teaCardList';
 
 export default function Tea() {
-  const dispatch = useDispatch()
-  const { teaCardPage } = useSelector(({ state }) => ({
-    teaCardPage: state.teaCardData
-  }))
+  // const dispatch = useDispatch()
+  // const { teaCardPage } = useSelector(({ state }) => ({
+  //   teaCardPage: state.teaCardData
+  // }))
 
-  React.useEffect(() => { 
-    dispatch(addTeaCardList(teaCardList))
-  }, [dispatch])
+  // React.useEffect(() => { 
+  //   dispatch(addTeaCardList(teaCardList))
+  // }, [dispatch])
 
-  const cardData = teaCardPage.teaCardData
+  // const cardData = teaCardPage.teaCardData
   const cardDataKeys = Object.keys(teaCardList)
 
   const teaListMap = () => {

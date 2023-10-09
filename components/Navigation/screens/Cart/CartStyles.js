@@ -2,21 +2,32 @@ import { StyleSheet } from "react-native";
 
 export const styles = StyleSheet.create({
   cartWrapper: {
+    flex: 1,
     width: '95%',
     height: '100%',
     alignSelf: 'center',
-    justifyContent: 'center',
+    justifyContent: 'flex-end',
     alignItems: 'center',
   },
   contentItems: {
     width: '100%',
-    height: '50%'
+    height: '80%',
+    marginBottom: 10
   },
   emptyCart: {
     
   },
+  cartBottomDetails: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginBottom: 10
+  },
+  payBtn: {
+    justifySelf: 'flex-end'
+  },
   btnCartOrder: {
-    width: '100%',
+    width: '90%',
+    alignSelf: 'center',
     backgroundColor: '#fe5f1e',
     alignItems: 'center',
     justifyContent: 'center',

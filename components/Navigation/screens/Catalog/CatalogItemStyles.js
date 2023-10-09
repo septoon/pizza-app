@@ -82,4 +82,8 @@ export const styles = StyleSheet.create({
     letterSpacing: 0.25,
     color: 'white',
   },
+  btnOrderPressed: {
+    // Стили для нажатой кнопки
+    backgroundColor: '#f4ae95', // Измените на цвет, который вам нужен при нажатии
+  },
 });

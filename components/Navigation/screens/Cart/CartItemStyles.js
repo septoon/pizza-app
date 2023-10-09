@@ -6,8 +6,8 @@ export const styles = StyleSheet.create({
     height: 50
   },
   closeCart: {
-    width: 15,
-    height: 15
+    width: 25,
+    height: 25
   },
   cartItem: {
     flex: 1,

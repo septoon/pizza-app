@@ -91,10 +91,6 @@ export default function Cart({ navigation }) {
             {items.length ? (
               <>
                 <View style={styles.cartTop}>
-                  <Text style={styles.contentTitle}>
-                    {' '}
-                    Корзина
-                  </Text>
                   <Button
                     style={styles.cartClear}
                     onPress={() => {
@@ -125,8 +121,8 @@ export default function Cart({ navigation }) {
                     return (
                       <CartItem
                         key={index}
-                        calculatePrice={calculatePrice}
                         count={count}
+                        result={result}
                         price={price}
                         onClickRemovePizza={onClickRemovePizza}
                         {...item}
@@ -144,23 +140,20 @@ export default function Cart({ navigation }) {
                       {' '}
                       Сумма заказа: <Text>{totalPrice} ₽</Text>{' '}
                     </Text>
-                  </View>
-                  <View style={styles.cartBottomButtons}>
-                      
-                    <View style={styles.payBtn}>
-                      <Pressable style={styles.btnCartOrder} onPress={toggleModal}>
-                        <Text style={styles.backBtnText}>Перейти к оформлению</Text>
-                      </Pressable>
-                      <Form countById={countById}
-                            totalItems={items}
-                            items={uniqueProducts} 
-                            totalCount={totalCount} 
-                            totalPrice={totalPrice} 
-                            isModalVisible={isModalVisible} 
-                            toggleModal={toggleModal}
-                            sendOrder={sendOrder}
-                      />
-                    </View>
+                  </View> 
+                  <View style={styles.payBtn}>
+                    <Pressable style={styles.btnCartOrder} onPress={toggleModal}>
+                      <Text style={styles.backBtnText}>Перейти к оформлению</Text>
+                    </Pressable>
+                    <Form countById={countById}
+                          totalItems={items}
+                          items={uniqueProducts} 
+                          totalCount={totalCount} 
+                          totalPrice={totalPrice} 
+                          isModalVisible={isModalVisible} 
+                          toggleModal={toggleModal}
+                          sendOrder={sendOrder}
+                    />
                   </View>
                 </View>
               </>

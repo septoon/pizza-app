@@ -7,6 +7,7 @@ export default function CatalogItem({ id, image, title, composition, prices, isC
 
   const [activeSize, setActiveSize] = useState('30 см')
   const [activePrice, setActivePrice] = useState(prices[0])
+  const [isButtonPressed, setIsButtonPressed] = useState(false);
 
   const [selectedButton, setSelectedButton] = useState(1);
 
@@ -68,7 +69,15 @@ export default function CatalogItem({ id, image, title, composition, prices, isC
 
         <View style={styles.priceHolder}>
           <Text ref={priceHolder} style={styles.priceCount}>{activePrice} ₽</Text>
-          <Pressable style={styles.btnOrder} onPress={ onAddPizza }>
+          <Pressable  style={[styles.btnOrder, isButtonPressed && styles.btnOrderPressed]} onPress={() => {
+            onAddPizza();
+            setIsButtonPressed(true);
+
+            // Через некоторое время сбросьте состояние обратно
+            setTimeout(() => {
+              setIsButtonPressed(false);
+            }, 200); 
+          }}>
             <Text style={styles.text}>+ Добавить</Text>
           </Pressable>
         </View>
