@@ -1,12 +1,11 @@
 import React, { useState, useEffect, useRef } from 'react'
 import { View, Text, StyleSheet, Animated, TouchableOpacity, SafeAreaView, Dimensions } from 'react-native'
 
-const SlideButton = () => {
-  const [active, setActive] = useState(false)
+const SlideButton = ({ toggleMode, activeMode }) => {
   let transformX = useRef(new Animated.Value(0)).current
 
   useEffect(() => {
-    if (active) {
+    if (activeMode) {
       Animated.timing(transformX, {
         toValue: 1,
         duration: 300,
@@ -19,7 +18,7 @@ const SlideButton = () => {
         useNativeDriver: true
       }).start()
     }
-  }, [active]);
+  }, [activeMode]);
 
   const rotationX = transformX.interpolate({
     inputRange: [0, 1],
@@ -32,11 +31,11 @@ const SlideButton = () => {
       <View style={styles.buttonsWrapper}>
         <Animated.View style={{
           position: 'absolute',
-          height: 50 - 2*2,
+          height: 40 - 2*2,
           top: 2,
           bottom: 2,
           borderRadius: 10,
-          width: Dimensions.get('screen').width / 2 - 2 - 5*2,
+          width: '46.8%',
           transform: [
             {
               translateX: rotationX
@@ -45,12 +44,12 @@ const SlideButton = () => {
           backgroundColor: 'white',
         }} >
         </Animated.View>
-        <TouchableOpacity style={styles.slideBtn} onPress={() => setActive(false)}>
+        <TouchableOpacity style={styles.slideBtn} onPress={toggleMode}>
           <Text>
             Доставка
         </Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.slideBtn} onPress={() => setActive(true)}>
+        <TouchableOpacity style={styles.slideBtn} onPress={toggleMode}>
           <Text>
             Самовывоз
         </Text>
@@ -64,19 +63,20 @@ export default SlideButton
 const styles = StyleSheet.create({
   slideWrapper: {
     alignItems: 'center',
-    marginBottom: 20
+    marginBottom: 10
   },
   buttonsWrapper: {
     flexDirection: 'row',
     position: 'relative',
-    height: 50,
+    height: 40,
     borderRadius: 10,
     backgroundColor: '#efebf0',
-    marginHorizontal: 5
+    marginHorizontal: 0
   },
   slideBtn: {
     flex: 1,
     justifyContent: 'center',
-    alignItems: 'center'
+    alignItems: 'center',
+    width: '50%'
   }
 })
