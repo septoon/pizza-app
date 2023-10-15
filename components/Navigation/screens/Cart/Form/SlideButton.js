@@ -45,12 +45,12 @@ const SlideButton = ({ toggleMode, activeMode }) => {
         }} >
         </Animated.View>
         <TouchableOpacity style={styles.slideBtn} onPress={toggleMode}>
-          <Text>
+          <Text style={styles.slideBtnText}>
             Доставка
         </Text>
         </TouchableOpacity>
         <TouchableOpacity style={styles.slideBtn} onPress={toggleMode}>
-          <Text>
+          <Text style={styles.slideBtnText}>
             Самовывоз
         </Text>
         </TouchableOpacity>
@@ -78,5 +78,8 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     width: '50%'
+  },
+  slideBtnText: {
+    fontWeight: '600'
   }
 })
