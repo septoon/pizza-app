@@ -4,7 +4,7 @@ import CartItem from './CartItem';
 import { useDispatch, useSelector } from 'react-redux';
 import { clearPizzaCartAC, removePizzaAC } from '../../../../redux/cart-reducer';
 import { createSelector } from 'reselect';
-import EmptyCartLogo from '../../../../assets/img/empty-cart.svg'
+import EmptyCartLogo from '../../../../assets/img/empty-cart-dark.svg'
 
 import Form from './Form/Form';
 
@@ -167,9 +167,9 @@ export default function Cart({ navigation }) {
                 </Text>
                   
                 <EmptyCartLogo style={styles.emptyCartLogo} /> 
-                <Pressable style={styles.backBtnStyle} onPress={() => {
+                <Pressable style={styles.toMainBtn} onPress={() => {
                   navigation.navigate('Catalog')}}>
-                  <Text style={styles.backBtnText}>Вернуться назад</Text>
+                  <Text style={styles.backBtnText}>На главную</Text>
                 </Pressable>
               </View>
              )}

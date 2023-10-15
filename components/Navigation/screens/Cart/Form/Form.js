@@ -201,16 +201,13 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     paddingVertical: 12,
     paddingHorizontal: 18,
-    borderRadius: 4,
     elevation: 3,
-    fontWeight: 400,
-    fontSize: 12,
     borderRadius: 10
   },
   btnText: {
     fontSize: 16,
     lineHeight: 21,
-    fontWeight: 'bold',
+    fontWeight: 600,
     letterSpacing: 0.25,
     color: 'white',
   },

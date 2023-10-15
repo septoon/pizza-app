@@ -80,6 +80,7 @@ const styles = StyleSheet.create({
     width: '50%'
   },
   slideBtnText: {
-    fontWeight: '600'
+    fontWeight: '600',
+    color: '#fe5f1e'
   }
 })

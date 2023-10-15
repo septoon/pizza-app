@@ -75,7 +75,7 @@ export const styles = StyleSheet.create({
     fontSize: 12,
     borderRadius: 10
   },
-  text: {
+  btnOrderText: {
     fontSize: 16,
     lineHeight: 21,
     fontWeight: 'bold',
@@ -83,7 +83,12 @@ export const styles = StyleSheet.create({
     color: 'white',
   },
   btnOrderPressed: {
-    // Стили для нажатой кнопки
-    backgroundColor: '#f4ae95', // Измените на цвет, который вам нужен при нажатии
+    paddingVertical: 10,
+    borderWidth: 2,
+    borderColor: '#fe5f1e',
+    backgroundColor: 'transparent',
+  },
+  btnOrderTextPressed: {
+    color: '#fe5f1e',
   },
 });

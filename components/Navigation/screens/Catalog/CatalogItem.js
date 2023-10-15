@@ -37,6 +37,7 @@ export default function CatalogItem({ id, image, title, composition, prices, isC
               setSelectedButton(1)
               setActivePrice(prices[0])
               setActiveSize('30 см')
+              setIsButtonPressed(false);
           }}>
             <Text style={styles.sizeText}>Ø 30см</Text>
           </Pressable>
@@ -48,6 +49,7 @@ export default function CatalogItem({ id, image, title, composition, prices, isC
               setSelectedButton(2)
               setActivePrice(prices[1])
               setActiveSize('40 см')
+              setIsButtonPressed(false);
           }}>
             <Text style={styles.sizeText}>Ø 40см</Text>
           </Pressable>
@@ -59,6 +61,7 @@ export default function CatalogItem({ id, image, title, composition, prices, isC
               setSelectedButton(3)
               setActivePrice(prices[2])
               setActiveSize('50 см')
+              setIsButtonPressed(false);
           }}>
             <Text style={styles.sizeText}>Ø 50см</Text>
           </Pressable>
@@ -71,14 +74,15 @@ export default function CatalogItem({ id, image, title, composition, prices, isC
           <Text ref={priceHolder} style={styles.priceCount}>{activePrice} ₽</Text>
           <Pressable  style={[styles.btnOrder, isButtonPressed && styles.btnOrderPressed]} onPress={() => {
             onAddPizza();
-            setIsButtonPressed(true);
-
-            // Через некоторое время сбросьте состояние обратно
-            setTimeout(() => {
+            isButtonPressed ? setTimeout(() => {
               setIsButtonPressed(false);
-            }, 200); 
+              setTimeout(() => {
+              setIsButtonPressed(true);
+              }, 100)
+            }, 0) : 
+              setIsButtonPressed(true);
           }}>
-            <Text style={styles.text}>+ Добавить</Text>
+            <Text style={[styles.btnOrderText, isButtonPressed && styles.btnOrderTextPressed]}>+ Добавить</Text>
           </Pressable>
         </View>
       </View>
