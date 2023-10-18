@@ -1,15 +1,17 @@
 import React, { useState } from 'react';
-import { Button, Image, StyleSheet, Text, View, Alert, Dimensions, ScrollView, Pressable } from 'react-native';
+import { Button, Image, StyleSheet, Text, View, Alert, Dimensions, ScrollView, Pressable, useColorScheme } from 'react-native';
 import CartItem from './CartItem';
 import { useDispatch, useSelector } from 'react-redux';
 import { clearPizzaCartAC, removePizzaAC } from '../../../../redux/cart-reducer';
 import { createSelector } from 'reselect';
 import EmptyCartLogo from '../../../../assets/img/empty-cart-dark.svg'
+import TrashIcon from '../../../../assets/img/trashIcon.svg'
 
 import Form from './Form/Form';
 
 import axios from 'axios';
-import { styles } from './CartStyles';
+import { styles } from './styles/CartStyles';
+import { dark } from './styles/CartStylesDark';
 
 const selectCart = state => state.cart;
 const selectCartData = createSelector(
@@ -30,13 +32,14 @@ export default function Cart({ navigation }) {
 
   let ordersCount = 0
   
-  const sendOrder = async(orderItems, pizzas, pay) => {
+  const sendOrder = async(orderType, orderItems, pizzas, pay) => {
     ordersCount += 1
     
     let message = `
         Заказ # ${ordersCount}
+        ${orderType}
         ${pizzas.toString()}
-        ${orderItems.price}
+        Сумма: ${totalPrice}
         Адрес Доставки: ${orderItems.address}
         Номер телефона: ${orderItems.phoneNumber}
         Комментарий: ${orderItems.comment}
@@ -56,7 +59,7 @@ export default function Cart({ navigation }) {
   const dispatch = useDispatch();
   const { items, totalCount, totalPrice } = useSelector(selectCartData);
 
-  const backBtnStyle = items.length ? styles.cartBackBtn : [ styles.cartBackBtn, styles.empty ];
+  const colorScheme = useColorScheme()
 
   const uniqueProducts = items.reduce((acc, current) => {
     const isDuplicate = acc.find(
@@ -84,16 +87,14 @@ export default function Cart({ navigation }) {
     dispatch(clearPizzaCartAC());
   };
   return (
-    <View style={ styles.cartWrapper }>
+    <View style={ colorScheme === 'light' ? styles.cartWrapper : dark.cartWrapper }>
       <View style={ styles.content }>
         <View style={ styles.containerCart }>
           <View style={styles.cart}>
             {items.length ? (
               <>
                 <View style={styles.cartTop}>
-                  <Button
-                    style={styles.cartClear}
-                    onPress={() => {
+                    <Pressable style={styles.cartClear} onPress={() => {
                       Alert.alert('Очистить корзину', 'Вы уверены, что хотите очистить корзину?', [
                         {
                           text: 'Cancel',
@@ -102,7 +103,10 @@ export default function Cart({ navigation }) {
                         },
                         {text: 'OK', onPress: () => dispatch(clearPizzaCartAC())},
                       ])
-                    }} title="Очистить корзину" />
+                    }}>
+                      <TrashIcon style={styles.cartClearIcon} />
+                      <Text style={styles.cartClearText}>Очистить корзину</Text>
+                    </Pressable>
                 </View>
                 <ScrollView style={styles.contentItems}>
                   {uniqueProducts.map((item, index) => {
@@ -134,16 +138,16 @@ export default function Cart({ navigation }) {
                   <View style={styles.cartBottomDetails}>
                     <Text style={styles.cartTotalCount}>
                       {' '}
-                      Всего пицц: <Text>{totalCount} шт.</Text>{' '}
+                      Всего пицц: <Text style={styles.cartTotalCountSum}>{totalCount} шт.</Text>{' '}
                     </Text>
                     <Text style={styles.cartTotalPrice}>
                       {' '}
-                      Сумма заказа: <Text>{totalPrice} ₽</Text>{' '}
+                      Сумма заказа: <Text style={styles.cartTotalPriceSum}>{totalPrice} ₽</Text>{' '}
                     </Text>
                   </View> 
                   <View style={styles.payBtn}>
                     <Pressable style={styles.btnCartOrder} onPress={toggleModal}>
-                      <Text style={styles.backBtnText}>Перейти к оформлению</Text>
+                      <Text style={styles.cartOrderBtnText}>Перейти к оформлению</Text>
                     </Pressable>
                     <Form countById={countById}
                           totalItems={items}
@@ -160,15 +164,15 @@ export default function Cart({ navigation }) {
             ) : (
               
               <View style={styles.emptyCart}>
-                <Text style={styles.emptyCartTitle}>Корзина пустая</Text>
-                <Text style={styles.emptyCartText}>
+                <Text style={colorScheme === 'light' ? styles.emptyCartTitle : dark.emptyCartTitle}>Корзина пустая</Text>
+                <Text style={ colorScheme === 'light' ? styles.emptyCartText : dark.emptyCartText}>
                   Вероятней всего, вы не заказывали ещё пиццу. Для того, чтобы заказать пиццу,
                   перейди на главную страницу.
                 </Text>
                   
                 <EmptyCartLogo style={styles.emptyCartLogo} /> 
                 <Pressable style={styles.toMainBtn} onPress={() => {
-                  navigation.navigate('Catalog')}}>
+                  navigation.navigate('Меню')}}>
                   <Text style={styles.backBtnText}>На главную</Text>
                 </Pressable>
               </View>

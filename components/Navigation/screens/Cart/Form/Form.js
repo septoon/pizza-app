@@ -6,14 +6,17 @@ import BackArrowBtn from '../../../../../assets/img/backArrow.svg'
 
 import mask from '../../../../../assets/other/mask';
 import SlideButton from './SlideButton';
+import { styles } from './styles/FormStyles';
 
 const Form = ({ items, countById, totalItems, sendOrder, totalPrice, isModalVisible, toggleModal }) => {
 
   const [payValue, setValue] = React.useState('Наличные');
   const [activeMode, setActiveMode] = useState(false)
+  const [orderType, setOrderType] = useState('Доставка')
 
   const toggleMode = () => {
     activeMode ? setActiveMode(false) : setActiveMode(true);
+    activeMode ? setOrderType('Доставка') : setOrderType('Самовывоз');
   };
   
   const pizzasList = items.map((i) => {
@@ -43,8 +46,8 @@ const Form = ({ items, countById, totalItems, sendOrder, totalPrice, isModalVisi
         <SlideButton toggleMode={toggleMode} activeMode={activeMode} />
         <View style={styles.emailFormWrapper}>
           <Text style={styles.formTitle}>Ваш заказ:</Text>
-            <Formik initialValues={{ price: `На сумму: ${totalPrice} ₽`, address: '', phoneNumber: '+7 ', comment: '' }}
-              onSubmit={values => sendOrder(values, pizzasList.toString(), payValue)} style={styles.formTotal}>
+            <Formik initialValues={{ address: '', phoneNumber: '+7 ', comment: '' }}
+              onSubmit={values => sendOrder(orderType, values, pizzasList.toString(), payValue)} style={styles.formTotal}>
                 {(props) => (
                   <>
                     <ScrollView style={styles.orderListWrapper}>
@@ -65,13 +68,10 @@ const Form = ({ items, countById, totalItems, sendOrder, totalPrice, isModalVisi
                       !activeMode ? 
                       (
                     <View style={styles.orderInputsWrapper}>
-                      <TextInput
-                        style={styles.hiddenInput}
-                        type="text"
-                        name="message"
-                        value={props.values.price}
-                      />
-                      <Text>Введите ваш адрес:</Text>
+                      <Text style={styles.formTotalPrice}>
+                        На сумму: <Text style={styles.formTotalPriceSum}>{totalPrice} ₽</Text> 
+                      </Text>
+                      <Text style={styles.formText}>Введите ваш адрес:</Text>
                       <View style={styles.inpValid}>
                         <TextInput
                           required
@@ -79,10 +79,11 @@ const Form = ({ items, countById, totalItems, sendOrder, totalPrice, isModalVisi
                           value={props.values.address}
                           onChangeText={props.handleChange('address')}
                           name="address"
-                          placeholder="ул. Горького, 54"
+                          placeholder="Ул. Горького, 54"
+                          placeholderTextColor="#b8b8bb"
                         />
                       </View>
-                      <Text>Введите ваш номер телефона:</Text>
+                      <Text style={styles.formText}>Введите ваш номер телефона:</Text>
                       <View style={styles.inpValid}>
                         <TextInput
                           required
@@ -90,13 +91,14 @@ const Form = ({ items, countById, totalItems, sendOrder, totalPrice, isModalVisi
                           value={props.values.phoneNumber}
                           onChangeText={props.handleChange('phoneNumber')}
                           placeholder="+7 (978) 704 88 06"
+                          placeholderTextColor="#b8b8bb"
                           name="telephone"
                           keyboardType="numeric"
                           maxLength={13}
                         />
 
                       </View>
-                      <Text>Добавьте комментарий:</Text>
+                      <Text style={styles.formText}>Добавьте комментарий:</Text>
                       <View style={styles.inpValid}>
                         <TextInput
                           required
@@ -105,9 +107,10 @@ const Form = ({ items, countById, totalItems, sendOrder, totalPrice, isModalVisi
                           onChangeText={props.handleChange('comment')}
                           name="comment"
                           placeholder="Например: заезд, номер подъезда..."
+                          placeholderTextColor="#b8b8bb"
                         />
                       </View>
-                      <Text>Спооб оплаты:</Text>
+                      <Text style={styles.formText}>Спооб оплаты:</Text>
                       <View style="payment" name="checkbox">
                         <RadioButton.Group onValueChange={newValue => setValue(newValue)} value={payValue}>
                           <RadioButton.Item label="Наличные" value="Наличные" />
@@ -118,13 +121,13 @@ const Form = ({ items, countById, totalItems, sendOrder, totalPrice, isModalVisi
 
                       ) :
                       (
-                        <View>
+                        <View style={styles.selfDelivery}>
                           <Text>Empty...</Text>
                         </View>
                       )
                     }
                     <Pressable type="submit" style={styles.btnOrder} onPress={props.handleSubmit}>
-                      <Text style={styles.btnText}>Заказать</Text>
+                      <Text style={styles.btnOrderText}>Заказать</Text>
                     </Pressable>
                   </>
                 )}
@@ -138,77 +141,3 @@ const Form = ({ items, countById, totalItems, sendOrder, totalPrice, isModalVisi
 
 export default Form;
 
-const styles = StyleSheet.create({
-  emailForm: {
-    width: '100%',
-    height: '100%',
-    paddingHorizontal: 5,
-    alignSelf: 'center',
-    backgroundColor: 'white',
-    paddingTop: 60,
-    position: 'relative',
-    borderBottomWidth: 1,
-    borderBottomColor: 'black'
-  },
-  modalHeader: {
-    position: 'absolute',
-    top: 0,
-    left: 0,
-    right: 0,
-    height: 50,
-    paddingHorizontal: 5,
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    backgroundColor: '#fe5f1e',
-  },
-  formBackBtn: {
-    marginBottom: 0
-  },
-  formBackBtnText: {
-    color: 'white',
-    fontSize: 17,
-    fontWeight: '500'
-  },
-  modalHeaderText: {
-    color: 'white',
-    fontSize: 16,
-    fontWeight: '800',
-    textAlign: 'center',
-  },
-  unvisibleText: {
-    color: 'transparent',
-    fontSize: 17,
-    fontWeight: '500'
-  },
-  emailFormWrapper: {
-    height: '100%',
-  },
-  orderListWrapper: {
-    maxHeight: '20%'
-  },
-  payment: {
-    width: '100%',
-
-  },
-  btnOrder: {
-    position: 'absolute',
-    bottom: 90,
-    width: '100%',
-    alignSelf: 'center',
-    backgroundColor: '#fe5f1e',
-    alignItems: 'center',
-    justifyContent: 'center',
-    paddingVertical: 12,
-    paddingHorizontal: 18,
-    elevation: 3,
-    borderRadius: 10
-  },
-  btnText: {
-    fontSize: 16,
-    lineHeight: 21,
-    fontWeight: 600,
-    letterSpacing: 0.25,
-    color: 'white',
-  },
-});

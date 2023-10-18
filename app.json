@@ -5,7 +5,7 @@
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/img/pizza.png",
-    "userInterfaceStyle": "light",
+    "userInterfaceStyle": "automatic",
     "splash": {
       "image": "./assets/img/splashScreen.png",
       "resizeMode": "contain",
@@ -15,9 +15,11 @@
       "**/*"
     ],
     "ios": {
+      "userInterfaceStyle": "automatic",
       "supportsTablet": true
     },
     "android": {
+      "userInterfaceStyle": "automatic",
       "adaptiveIcon": {
         "foregroundImage": "./assets/img/pizza.png",
         "backgroundColor": "#ffffff"

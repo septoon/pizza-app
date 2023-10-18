@@ -3,7 +3,15 @@ import { StyleSheet } from "react-native";
 export const styles = StyleSheet.create({
   catalogItem: {
     width: '95%',
-    marginBottom: 20
+    marginBottom: 20,
+    padding: 10,
+    shadowColor: '#222c50',
+    shadowOffset: { width: 0, height: 5 },
+    shadowOpacity: 0.25,
+    shadowRadius: 5,
+    border: 0,
+    borderRadius: 15,
+    backgroundColor: 'white',
   },
   catalogItemBlock: {
     width: '100%',
@@ -55,6 +63,7 @@ export const styles = StyleSheet.create({
     textAlign: 'center',
     padding: 5,
     borderRadius: 15,
+    color: 'gray',
     backgroundColor: 'floralwhite'
   },
   priceHolder: {

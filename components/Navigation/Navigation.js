@@ -8,16 +8,18 @@ import Catalog from './screens/Catalog/Catalog';
 import Cart from './screens/Cart/Cart';
 import Tea from './screens/Tea/Tea';
 import Delivery from './screens/Delivery/Delivery';
+import { useColorScheme } from 'react-native';
 
 //Screen names
-const catalogName = "Catalog";
-const cartName = "Cart";
-const teaName = "Tea";
-const deliveryName = "Delivery";
+const catalogName = "Меню";
+const cartName = "Корзина";
+const teaName = "Чай";
+const deliveryName = "Доставка";
 
 const Tab = createBottomTabNavigator();
 
 export default function Navigation() {
+  const colorScheme = useColorScheme();
   return (
     <NavigationContainer>
        <Tab.Navigator
@@ -42,7 +44,7 @@ export default function Navigation() {
           tabBarActiveTintColor: 'tomato',
           tabBarInactiveTintColor: 'grey',
           tabBarLabelStyle: { paddingBottom: 10, fontSize: 10 },
-          tabBarStyle: { padding: 10, height: 90 }
+          tabBarStyle: { backgroundColor: colorScheme === 'light' ? 'white' : 'black', padding: 10, height: 90, borderTopWidth: 0 }
         })}
         >
 

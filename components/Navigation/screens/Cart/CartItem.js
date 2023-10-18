@@ -1,8 +1,9 @@
-import { Image, Pressable, StyleSheet, Text, TouchableHighlight, View } from 'react-native';
+import { Image, Pressable, StyleSheet, Text, TouchableHighlight, View, useColorScheme } from 'react-native';
 import React from 'react';
-import { styles } from './CartItemStyles';
+import { styles } from './styles/CartItemStyles';
 
 import TrashIcon from '../../../../assets/img/trashIcon.svg'
+import { dark } from './styles/CartItemStylesDark';
 
 export default function CartItem({
   id,
@@ -14,6 +15,7 @@ export default function CartItem({
   count,
   onClickRemovePizza,
 }) {
+  const colorScheme = useColorScheme();
   result.forEach(item => price += parseInt(item.activePrice) + 40)
   const onRemovePizza = () => {
     const pizzaObj = {
@@ -25,21 +27,23 @@ export default function CartItem({
   return (
     <View style={styles.cartItem}>
       <View style={styles.cartItemImg}>
-        <Image style={styles.pizzaBlockImage} source={require('../../../../assets/img/pepperoni.png')} />
+      <Image source={{
+          uri: image
+        }} style={styles.pizzaBlockImage}  />
       </View>
       <View style={styles.cartItemInfo}>
-        <Text style={styles.titleText}>{title}</Text>
+        <Text style={colorScheme === 'light' ? styles.titleText : dark.titleText}>{title}</Text>
         <Text style={styles.sizeText}>{activeSize}</Text>
       </View>
       <View style={styles.cartItemCount}>
         <View>
         </View>
-        <Text style={styles.cartItemCountText}>{count} шт.</Text>
+        <Text style={colorScheme === 'light' ? styles.cartItemCountText : dark.cartItemCountText}>{count} шт.</Text>
         <View>
         </View>
       </View>
       <View style={styles.cartItemPrice}>
-        <Text style={styles.priceText}>{price}₽</Text>
+        <Text style={colorScheme === 'light' ? styles.priceText : dark.priceText}>{price}₽</Text>
       </View>
       <View style={styles.cartItemRemove}>
         <Pressable style={styles.closeCart} onPress={() => {

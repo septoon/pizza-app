@@ -70,14 +70,14 @@ const styles = StyleSheet.create({
     position: 'relative',
     height: 40,
     borderRadius: 10,
-    backgroundColor: '#efebf0',
+    backgroundColor: '#d3d3d3',
     marginHorizontal: 0
   },
   slideBtn: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    width: '50%'
+    width: '50%',
   },
   slideBtnText: {
     fontWeight: '600',

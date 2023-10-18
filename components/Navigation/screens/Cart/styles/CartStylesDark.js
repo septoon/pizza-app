@@ -1,13 +1,16 @@
 import { StyleSheet } from "react-native";
 
-export const styles = StyleSheet.create({
+export const dark = StyleSheet.create({
   cartWrapper: {
     flex: 1,
-    width: '95%',
+    width: '100%',
     height: '100%',
+    paddingTop: 20,
+    paddingHorizontal: 10,
     alignSelf: 'center',
     justifyContent: 'flex-end',
     alignItems: 'center',
+    backgroundColor: '#000'
   },
   content: {
     flex: 1
@@ -17,6 +20,17 @@ export const styles = StyleSheet.create({
   },
   cart: {
     flex: 1,
+  },
+  cartClear: {
+    flexDirection: 'row',
+    marginBottom: 10
+  },
+  cartClearIcon: {
+    width: 20,
+    height: 20
+  },
+  cartClearText: {
+    color: '#b6b6b6',
   },
   contentItems: {
     width: '100%',
@@ -30,6 +44,21 @@ export const styles = StyleSheet.create({
   },
   payBtn: {
     justifySelf: 'flex-end'
+  },
+  cartTotalCount: {
+    fontWeight: 600
+  },
+  cartTotalPrice: {
+    fontWeight: 600
+  },
+  cartTotalCountSum: {
+    fontSize: 16,
+    fontWeight: 700,
+  },
+  cartTotalPriceSum: {
+    fontSize: 16,
+    fontWeight: 700,
+    color: 'orange'
   },
   btnCartOrder: {
     width: '90%',
@@ -56,10 +85,12 @@ export const styles = StyleSheet.create({
     marginTop: 20,
   },
   emptyCartTitle: {
+    color: '#fff',
     fontSize: 26,
     fontWeight: 700,
   },
   emptyCartText: {
+    color: '#fff',
     marginBottom: 30
   },
   emptyCartLogo: {

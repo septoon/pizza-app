@@ -1,10 +1,12 @@
 import { createRef, useState } from 'react';
-import { Button, Image, Pressable, Text, View } from 'react-native';
-import { styles } from './CatalogItemStyles';
+import { Button, Image, Pressable, Text, View, useColorScheme } from 'react-native';
+import { styles } from './styles/CatalogItemStyles';
+import { dark } from './styles/CatalogItemStylesDark';
+
 
 export default function CatalogItem({ id, image, title, composition, prices, isChange, onClickAddPizza }) {
   const priceHolder = createRef()
-
+  const colorScheme = useColorScheme();
   const [activeSize, setActiveSize] = useState('30 см')
   const [activePrice, setActivePrice] = useState(prices[0])
   const [isButtonPressed, setIsButtonPressed] = useState(false);
@@ -18,13 +20,13 @@ export default function CatalogItem({ id, image, title, composition, prices, isC
     onClickAddPizza(obj)
   }
   return (
-    <View style={styles.catalogItem}>
+    <View style={colorScheme === 'light' ? styles.catalogItem : dark.catalogItem}>
       <View style={styles.catalogItemBlock}>
         <Image source={{
           uri: image
         }} style={styles.image} />
-        <Text style={styles.name}>{title}</Text>
-        <Text style={styles.description}>Состав: {composition}</Text>
+        <Text style={colorScheme === 'light' ? styles.name : dark.name}>{title}</Text>
+        <Text style={colorScheme === 'light' ? styles.description : dark.description}>Состав: {composition}</Text>
       </View>
 
       <View style={styles.catalogItemBlock}>
