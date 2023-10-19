@@ -44,7 +44,7 @@ export const dark = StyleSheet.create({
     borderRadius: 5,
     borderWidth: 0.5,
     borderColor: '#2c2b2f',
-    backgroundColor: '##39383d'
+    backgroundColor: '#39383d'
   },
   sizeItemActive: {
     backgroundColor: '#b1a5a5'
@@ -53,6 +53,7 @@ export const dark = StyleSheet.create({
     color: 'white',
   },
   priceCount: {
+    color: 'white',
     fontSize: 24
   },
   packingItem: {
@@ -61,7 +62,7 @@ export const dark = StyleSheet.create({
     padding: 5,
     borderRadius: 15,
     color: 'white',
-    backgroundColor: '3#9383d'
+    backgroundColor: '#39383d'
   },
   priceHolder: {
     width: '100%',

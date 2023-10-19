@@ -6,7 +6,7 @@ export const dark = StyleSheet.create({
     height: '100%',
     paddingHorizontal: 15,
     alignSelf: 'center',
-    backgroundColor: '#efeff4',
+    backgroundColor: '#151517',
     paddingTop: 60,
     position: 'relative',
     borderBottomWidth: 1,
@@ -47,15 +47,26 @@ export const dark = StyleSheet.create({
     height: '100%',
   },
   orderListWrapper: {
-    maxHeight: '20%'
+    maxHeight: '20%',
+    backgroundColor: '#212123',
+    padding: 10,
+    borderRadius: 10,
+    marginBottom: 20
   },
   formTitle: {
+    color: 'white',
     fontSize: 18,
     fontWeight: 600,
     marginBottom: 20
   },
+  hiddenInput: {
+    color: 'white',
+    marginBottom: 5,
+    fontSize: 14
+  },
   formTotalPrice: {
-    fontWeight: 600
+    color: 'white',
+    fontWeight: 700
   },
   formTotalPriceSum: {
     fontSize: 16,
@@ -63,17 +74,30 @@ export const dark = StyleSheet.create({
     color: 'orange'
   },
   formText: {
+    color: 'white',
     fontSize: 16,
     marginVertical: 10
   },
   orderInput: {
+    color: 'white',
     height: 40,
     borderRadius: 10,
-    backgroundColor: '#fefeff',
+    backgroundColor: '#212123',
     paddingLeft: 10
   },
   payment: {
     width: '100%',
+    color: 'white'
+  },
+  paymentButton: {
+    flexDirection: 'row',
+    justifyContent: 'space-between'
+  },
+  paymentText: {
+    color: 'white'
+  },
+  formRadioBtn: {
+    color: 'white'
   },
   btnOrder: {
     position: 'absolute',

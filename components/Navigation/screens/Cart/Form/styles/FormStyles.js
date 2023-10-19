@@ -18,7 +18,7 @@ export const styles = StyleSheet.create({
     left: 0,
     right: 0,
     height: 50,
-    paddingHorizontal: 5,
+    paddingHorizontal: 10,
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
@@ -47,15 +47,38 @@ export const styles = StyleSheet.create({
     height: '100%',
   },
   orderListWrapper: {
-    maxHeight: '20%'
+    maxHeight: '20%',
+    backgroundColor: '#fff',
+    padding: 10,
+    borderRadius: 10,
+    marginBottom: 20
   },
   formTitle: {
     fontSize: 18,
     fontWeight: 600,
     marginBottom: 20
   },
+  showDateToggle: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    backgroundColor: 'white',
+    borderRadius: 10,
+    paddingVertical: 10,
+    paddingHorizontal: 5
+  },
+  showDateToggleText: {
+    fontSize: 14,
+    fontWeight: 500
+  },
+  datePickerWrapper: {
+    height: 25,
+    width: 80,
+    backgroundColor: '#eaeaec',
+    borderRadius: 5
+  },
   formTotalPrice: {
-    fontWeight: 600
+    fontWeight: 700
   },
   formTotalPriceSum: {
     fontSize: 16,

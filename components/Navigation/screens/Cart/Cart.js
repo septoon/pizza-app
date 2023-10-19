@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { clearPizzaCartAC, removePizzaAC } from '../../../../redux/cart-reducer';
 import { createSelector } from 'reselect';
 import EmptyCartLogo from '../../../../assets/img/empty-cart-dark.svg'
+import EmptyCartLogoLight from '../../../../assets/img/empty-cart.svg'
 import TrashIcon from '../../../../assets/img/trashIcon.svg'
 
 import Form from './Form/Form';
@@ -169,8 +170,14 @@ export default function Cart({ navigation }) {
                   Вероятней всего, вы не заказывали ещё пиццу. Для того, чтобы заказать пиццу,
                   перейди на главную страницу.
                 </Text>
-                  
-                <EmptyCartLogo style={styles.emptyCartLogo} /> 
+                {
+                  colorScheme === 'light' ? (
+                    <EmptyCartLogoLight style={styles.emptyCartLogo} />
+                  ) : (
+                    <EmptyCartLogo style={styles.emptyCartLogo} />
+                  )
+                }
+                 
                 <Pressable style={styles.toMainBtn} onPress={() => {
                   navigation.navigate('Меню')}}>
                   <Text style={styles.backBtnText}>На главную</Text>
