@@ -1,86 +1,71 @@
 import React, { useState, useEffect, useRef } from 'react'
-import { View, Text, StyleSheet, Animated, TouchableOpacity, SafeAreaView, Dimensions } from 'react-native'
+import { View, Text, StyleSheet, Animated, TouchableOpacity, SafeAreaView, Dimensions, Pressable } from 'react-native'
 
-const SlideButton = ({ toggleMode, activeMode }) => {
-  let transformX = useRef(new Animated.Value(0)).current
-
-  useEffect(() => {
-    if (activeMode) {
-      Animated.timing(transformX, {
-        toValue: 1,
-        duration: 300,
-        useNativeDriver: true
-      }).start()
-    } else {
-      Animated.timing(transformX, {
-        toValue: 0,
-        duration: 300,
-        useNativeDriver: true
-      }).start()
-    }
-  }, [activeMode]);
-
-  const rotationX = transformX.interpolate({
-    inputRange: [0, 1],
-    outputRange: [2, Dimensions.get('screen').width / 2]
-  })
-
+const SlideButton = ({ toggleMode, orderType }) => {
 
   return (
-    <SafeAreaView style={styles.slideWrapper}>
       <View style={styles.buttonsWrapper}>
-        <Animated.View style={{
-          position: 'absolute',
-          height: 40 - 2*2,
-          top: 2,
-          bottom: 2,
-          borderRadius: 10,
-          width: '46.8%',
-          transform: [
-            {
-              translateX: rotationX
-            }
-          ],
-          backgroundColor: 'white',
-        }} >
-        </Animated.View>
-        <TouchableOpacity style={styles.slideBtn} onPress={toggleMode}>
-          <Text style={styles.slideBtnText}>
+        <Pressable style={  [
+          styles.slideBtn,
+          orderType === 'Доставка' ? styles.slideBtnActive : null,
+        ]} onPress={toggleMode}>
+          <Text style={[
+          styles.slideBtnText,
+          orderType === 'Доставка' ? styles.slideBtnTextActive : null,
+        ]}>
             Доставка
         </Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.slideBtn} onPress={toggleMode}>
-          <Text style={styles.slideBtnText}>
+        </Pressable>
+        <Pressable style={  [
+          styles.slideBtn,
+          orderType === 'Самовывоз' ? styles.slideBtnActive : null,
+        ]} onPress={toggleMode}>
+          <Text style={[
+          styles.slideBtnText,
+          orderType === 'Самовывоз' ? styles.slideBtnTextActive : null,
+        ]}>
             Самовывоз
         </Text>
-        </TouchableOpacity>
+        </Pressable>
       </View>
-    </SafeAreaView>
   )
 }
 export default SlideButton
 
 const styles = StyleSheet.create({
-  slideWrapper: {
-    alignItems: 'center',
-    marginBottom: 10
-  },
   buttonsWrapper: {
+    alignSelf: 'center',
     flexDirection: 'row',
     position: 'relative',
-    height: 40,
+    height: 30,
+    width: 200,
     borderRadius: 10,
-    backgroundColor: '#d3d3d3',
-    marginHorizontal: 0
+    backgroundColor: '#000',
+    marginHorizontal: 0,
+    marginBottom: 10
   },
   slideBtn: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    width: '50%',
+    width: '40%',
+    
+    borderRadius: 5
+  },
+  slideBtnActive: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    width: '40%',
+    backgroundColor: '#efefef',
+    borderRadius: 5
   },
   slideBtnText: {
     fontWeight: '600',
-    color: '#fe5f1e'
+    color: '#efefef'
+  },
+  slideBtnTextActive: {
+    fontWeight: '600',
+    color: '#1a1a1a'
   }
 })

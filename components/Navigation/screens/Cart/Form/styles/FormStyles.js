@@ -126,7 +126,7 @@ export const styles = StyleSheet.create({
   },
   btnOrder: {
     position: 'absolute',
-    bottom: 90,
+    bottom: -50,
     width: '100%',
     alignSelf: 'center',
     backgroundColor: '#fe5f1e',

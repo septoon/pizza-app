@@ -88,7 +88,7 @@ const Form = ({
           <Text style={styles.modalHeaderText}>Оформление</Text>
           <Text style={styles.unvisibleText}>Закрыть</Text>
         </View>
-        <SlideButton toggleMode={toggleMode} activeMode={activeMode} />
+        <SlideButton toggleMode={toggleMode} orderType={orderType} />
         <View style={styles.emailFormWrapper}>
           <Text style={colorScheme === 'light' ? styles.formTitle : dark.formTitle}>
             Ваш заказ:
@@ -98,8 +98,8 @@ const Form = ({
             onSubmit={(values) => sendOrder(orderType, values, pizzasList.toString(), payValue)}
             style={styles.formTotal}>
             {(props) => (
-              <>
-                <ScrollView
+              <ScrollView>
+                <View
                   style={colorScheme === 'light' ? styles.orderListWrapper : dark.orderListWrapper}>
                   {items.map((i) => {
                     const count = countById(totalItems, i.id, i.activeSize);
@@ -113,7 +113,7 @@ const Form = ({
                       />
                     );
                   })}
-                </ScrollView>
+                </View>
                 {!activeMode ? (
                   <View style={styles.orderInputsWrapper}>
                     <Text
@@ -199,7 +199,7 @@ const Form = ({
                     </View>
                   </View>
                 ) : (
-                  <View style={styles.orderInputsWrapper}>
+                  <ScrollView style={styles.orderInputsWrapper}>
                     <Text
                       style={colorScheme === 'light' ? styles.formTotalPrice : dark.formTotalPrice}>
                       На сумму: <Text style={styles.formTotalPriceSum}>{totalPrice} ₽</Text>
@@ -220,12 +220,12 @@ const Form = ({
                         maxLength={13}
                       />
                     </View>
-                  </View>
+                  </ScrollView>
                 )}
                 <Pressable type="submit" style={styles.btnOrder} onPress={props.handleSubmit}>
                   <Text style={styles.btnOrderText}>Заказать</Text>
                 </Pressable>
-              </>
+              </ScrollView>
             )}
           </Formik>
         </View>
