@@ -59,6 +59,44 @@ export const dark = StyleSheet.create({
     fontWeight: 600,
     marginBottom: 20
   },
+  showDateToggle: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    backgroundColor: '#212123',
+    borderRadius: 10,
+    paddingVertical: 10,
+    paddingHorizontal: 10
+  },
+  showDatePicker: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    backgroundColor: '#212123',
+    borderRadius: 10,
+    marginTop: 1,
+    paddingVertical: 5,
+    paddingHorizontal: 10
+  },
+  showDateToggleText: {
+    fontSize: 14,
+    fontWeight: 500,
+    color: 'white'
+  },
+  datePickerWrapper: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: '#2f2f32',
+    paddingHorizontal: 10,
+    paddingVertical: 10,
+    borderRadius: 8,
+    marginLeft: 5,
+    color: 'white'
+  },
+  showDateBtnText: {
+    color: 'white',
+    fontSize: 16
+  },
   hiddenInput: {
     color: 'white',
     marginBottom: 5,

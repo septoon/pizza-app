@@ -71,11 +71,37 @@ export const styles = StyleSheet.create({
     fontSize: 14,
     fontWeight: 500
   },
+  showDatePicker: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    backgroundColor: 'white',
+    borderRadius: 10,
+    marginTop: 1,
+    paddingVertical: 5,
+    paddingHorizontal: 10
+  },
+  showDateToggleText: {
+    fontSize: 14,
+    fontWeight: 500,
+    color: '#000'
+  },
   datePickerWrapper: {
-    height: 25,
-    width: 80,
+    alignItems: 'center',
+    justifyContent: 'center',
     backgroundColor: '#eaeaec',
-    borderRadius: 5
+    paddingHorizontal: 10,
+    paddingVertical: 10,
+    borderRadius: 8,
+    marginLeft: 5,
+    color: 'white'
+  },
+  showDateBtnText: {
+    color: '#000',
+    fontSize: 16
+  },
+  showDateBtnWrapper: {
+    flexDirection: 'row'
   },
   formTotalPrice: {
     fontWeight: 700

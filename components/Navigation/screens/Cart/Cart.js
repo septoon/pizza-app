@@ -27,6 +27,18 @@ const selectCartData = createSelector(
 export default function Cart({ navigation }) {
   const [isModalVisible, setModalVisible] = useState(false);
 
+  const [selectedDate, setSelectedDate] = useState(new Date());
+  const shortDate = selectedDate.toLocaleDateString('ru-RU', {
+    day: 'numeric',
+    month: 'short',
+    year: 'numeric',
+  });
+  const shortTime = selectedDate.toLocaleTimeString('ru-RU', {
+    hour12: false,
+    hour: 'numeric',
+    minute: 'numeric',
+  });
+  const [showDate, setShowDate] = useState(false);
   const toggleModal = () => {
     setModalVisible(!isModalVisible);
   };
@@ -43,6 +55,7 @@ export default function Cart({ navigation }) {
         Сумма: ${totalPrice}
         Адрес Доставки: ${orderItems.address}
         Номер телефона: ${orderItems.phoneNumber}
+        Время доставки: ${shortTime}
         Комментарий: ${orderItems.comment}
         Способ оплаты: ${pay}
       `
@@ -50,6 +63,7 @@ export default function Cart({ navigation }) {
       chat_id: "-1001929441485",
       text: message
     }).then((res) => {
+      setSelectedDate(new Date())
       onClickClearCart()
       setModalVisible(false)
     }).catch((err) => {
@@ -152,12 +166,18 @@ export default function Cart({ navigation }) {
                     </Pressable>
                     <Form countById={countById}
                           totalItems={items}
+                          selectedDate={selectedDate}
+                          setSelectedDate={setSelectedDate}
+                          showDate={showDate}
+                          setShowDate={setShowDate}
                           items={uniqueProducts} 
                           totalCount={totalCount} 
                           totalPrice={totalPrice} 
                           isModalVisible={isModalVisible} 
                           toggleModal={toggleModal}
                           sendOrder={sendOrder}
+                          shortDate={shortDate}
+                          shortTime={shortTime}
                     />
                   </View>
                 </View>
