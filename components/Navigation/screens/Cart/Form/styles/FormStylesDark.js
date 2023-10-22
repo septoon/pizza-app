@@ -45,6 +45,8 @@ export const dark = StyleSheet.create({
   },
   emailFormWrapper: {
     height: '100%',
+
+    position: 'relative'
   },
   orderListWrapper: {
     maxHeight: '20%',
@@ -57,7 +59,9 @@ export const dark = StyleSheet.create({
     color: 'white',
     fontSize: 18,
     fontWeight: 600,
-    marginBottom: 20
+    marginBottom: 20,
+  },
+  formTotal: {
   },
   showDateToggle: {
     flexDirection: 'row',
@@ -139,7 +143,7 @@ export const dark = StyleSheet.create({
   },
   btnOrder: {
     position: 'absolute',
-    bottom: 90,
+    top: 0,
     width: '100%',
     alignSelf: 'center',
     backgroundColor: '#fe5f1e',

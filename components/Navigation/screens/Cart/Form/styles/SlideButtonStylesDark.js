@@ -1,0 +1,39 @@
+const { StyleSheet } = require("react-native");
+
+export const dark = StyleSheet.create({
+  buttonsWrapper: {
+    alignSelf: 'center',
+    flexDirection: 'row',
+    position: 'relative',
+    height: 30,
+    width: 200,
+    borderRadius: 10,
+    backgroundColor: '#000',
+    marginHorizontal: 0,
+    marginBottom: 10
+  },
+  slideBtn: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    width: '40%',
+    
+    borderRadius: 5
+  },
+  slideBtnActive: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    width: '40%',
+    backgroundColor: '#efefef',
+    borderRadius: 5
+  },
+  slideBtnText: {
+    fontWeight: '600',
+    color: '#efefef'
+  },
+  slideBtnTextActive: {
+    fontWeight: '600',
+    color: '#1a1a1a'
+  }
+})

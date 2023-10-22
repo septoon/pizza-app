@@ -60,10 +60,8 @@ export const styles = StyleSheet.create({
   },
   packingItem: {
     width: '100%',
-    textAlign: 'center',
     padding: 5,
-    borderRadius: 15,
-    color: 'gray',
+    borderRadius: 5,
     backgroundColor: 'floralwhite'
   },
   priceHolder: {

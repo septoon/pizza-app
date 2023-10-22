@@ -88,7 +88,7 @@ const Form = ({
           <Text style={styles.modalHeaderText}>Оформление</Text>
           <Text style={styles.unvisibleText}>Закрыть</Text>
         </View>
-        <SlideButton toggleMode={toggleMode} orderType={orderType} />
+        <SlideButton colorScheme={colorScheme} toggleMode={toggleMode} orderType={orderType} />
         <View style={styles.emailFormWrapper}>
           <Text style={colorScheme === 'light' ? styles.formTitle : dark.formTitle}>
             Ваш заказ:
@@ -98,7 +98,8 @@ const Form = ({
             onSubmit={(values) => sendOrder(orderType, values, pizzasList.toString(), payValue)}
             style={styles.formTotal}>
             {(props) => (
-              <ScrollView>
+              <>
+              <ScrollView stickyHeaderIndices={[3]}>
                 <View
                   style={colorScheme === 'light' ? styles.orderListWrapper : dark.orderListWrapper}>
                   {items.map((i) => {
@@ -199,7 +200,7 @@ const Form = ({
                     </View>
                   </View>
                 ) : (
-                  <ScrollView style={styles.orderInputsWrapper}>
+                  <View style={styles.orderInputsWrapper}>
                     <Text
                       style={colorScheme === 'light' ? styles.formTotalPrice : dark.formTotalPrice}>
                       На сумму: <Text style={styles.formTotalPriceSum}>{totalPrice} ₽</Text>
@@ -220,12 +221,13 @@ const Form = ({
                         maxLength={13}
                       />
                     </View>
-                  </ScrollView>
+                  </View>
                 )}
+              </ScrollView>
                 <Pressable type="submit" style={styles.btnOrder} onPress={props.handleSubmit}>
                   <Text style={styles.btnOrderText}>Заказать</Text>
                 </Pressable>
-              </ScrollView>
+              </>
             )}
           </Formik>
         </View>

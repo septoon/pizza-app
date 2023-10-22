@@ -68,8 +68,12 @@ export default function CatalogItem({ id, image, title, composition, prices, isC
             <Text style={colorScheme === 'light' ? styles.sizeText : dark.sizeText}>Ø 50см</Text>
           </Pressable>
         </View>
-
-        <Text style={colorScheme === 'light' ? styles.packingItem : dark.packingItem}>+40₽ к стоимости, за упаковку</Text>
+        <View style={colorScheme === 'light' ? styles.packingItem : dark.packingItem}>
+          <Text style={{
+            color: colorScheme === 'light' ? 'gray' : '#fff',
+            textAlign: 'center',
+          }}>+40₽ к стоимости, за упаковку</Text>
+        </View>
         <Button style={styles.ingredients} title='Добавить ингредиенты' />
 
         <View style={styles.priceHolder}>

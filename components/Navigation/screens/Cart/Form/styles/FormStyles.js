@@ -104,7 +104,9 @@ export const styles = StyleSheet.create({
     flexDirection: 'row'
   },
   formTotalPrice: {
-    fontWeight: 700
+    fontWeight: 700,
+    marginBottom: 20
+
   },
   formTotalPriceSum: {
     fontSize: 16,
@@ -125,8 +127,8 @@ export const styles = StyleSheet.create({
     width: '100%',
   },
   btnOrder: {
-    position: 'absolute',
-    bottom: -50,
+    position: 'fixed',
+    bottom: 70,
     width: '100%',
     alignSelf: 'center',
     backgroundColor: '#fe5f1e',
@@ -135,7 +137,8 @@ export const styles = StyleSheet.create({
     paddingVertical: 12,
     paddingHorizontal: 18,
     elevation: 3,
-    borderRadius: 10
+    borderRadius: 10,
+    zIndex: 9999
   },
   btnOrderText: {
     fontSize: 16,

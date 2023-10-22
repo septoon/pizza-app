@@ -1,27 +1,29 @@
-import React, { useState, useEffect, useRef } from 'react'
-import { View, Text, StyleSheet, Animated, TouchableOpacity, SafeAreaView, Dimensions, Pressable } from 'react-native'
+import React from 'react'
+import { View, Text, Pressable } from 'react-native'
+import { styles } from './styles/SlideButtonStyles'
+import { dark } from './styles/SlideButtonStylesDark'
 
-const SlideButton = ({ toggleMode, orderType }) => {
+const SlideButton = ({ colorScheme, toggleMode, orderType }) => {
 
   return (
-      <View style={styles.buttonsWrapper}>
-        <Pressable style={  [
-          styles.slideBtn,
+      <View style={colorScheme === 'light' ? styles.buttonsWrapper : dark.buttonsWrapper}>
+        <Pressable style={[
+          colorScheme === 'light' ? styles.slideBtn : dark.slideBtn,
           orderType === 'Доставка' ? styles.slideBtnActive : null,
         ]} onPress={toggleMode}>
           <Text style={[
-          styles.slideBtnText,
+          colorScheme === 'light' ? styles.slideBtnText : dark.slideBtnText,
           orderType === 'Доставка' ? styles.slideBtnTextActive : null,
         ]}>
             Доставка
         </Text>
         </Pressable>
-        <Pressable style={  [
-          styles.slideBtn,
+        <Pressable style={[
+          colorScheme === 'light' ? styles.slideBtn : dark.slideBtn,
           orderType === 'Самовывоз' ? styles.slideBtnActive : null,
         ]} onPress={toggleMode}>
           <Text style={[
-          styles.slideBtnText,
+          colorScheme === 'light' ? styles.slideBtnText : dark.slideBtnText,
           orderType === 'Самовывоз' ? styles.slideBtnTextActive : null,
         ]}>
             Самовывоз
@@ -31,41 +33,3 @@ const SlideButton = ({ toggleMode, orderType }) => {
   )
 }
 export default SlideButton
-
-const styles = StyleSheet.create({
-  buttonsWrapper: {
-    alignSelf: 'center',
-    flexDirection: 'row',
-    position: 'relative',
-    height: 30,
-    width: 200,
-    borderRadius: 10,
-    backgroundColor: '#000',
-    marginHorizontal: 0,
-    marginBottom: 10
-  },
-  slideBtn: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    width: '40%',
-    
-    borderRadius: 5
-  },
-  slideBtnActive: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    width: '40%',
-    backgroundColor: '#efefef',
-    borderRadius: 5
-  },
-  slideBtnText: {
-    fontWeight: '600',
-    color: '#efefef'
-  },
-  slideBtnTextActive: {
-    fontWeight: '600',
-    color: '#1a1a1a'
-  }
-})

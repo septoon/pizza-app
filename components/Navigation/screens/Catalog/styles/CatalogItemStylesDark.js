@@ -58,10 +58,8 @@ export const dark = StyleSheet.create({
   },
   packingItem: {
     width: '100%',
-    textAlign: 'center',
     padding: 5,
-    borderRadius: 15,
-    color: 'white',
+    borderRadius: 5,
     backgroundColor: '#39383d'
   },
   priceHolder: {
