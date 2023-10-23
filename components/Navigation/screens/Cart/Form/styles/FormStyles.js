@@ -115,6 +115,7 @@ export const styles = StyleSheet.create({
   },
   formText: {
     fontSize: 16,
+    fontWeight: 500,
     marginVertical: 10
   },
   orderInput: {
@@ -125,6 +126,9 @@ export const styles = StyleSheet.create({
   },
   payment: {
     width: '100%',
+  },
+  radioBtnRow: {
+    paddingHorizontal: 0,
   },
   btnOrder: {
     position: 'fixed',

@@ -36,7 +36,7 @@ export const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     width: '40%',
-    backgroundColor: '#1a1a1a',
+    backgroundColor: '#fe5f1e',
     borderRadius: 5
   },
   slideBtnText: {

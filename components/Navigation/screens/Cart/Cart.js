@@ -26,6 +26,7 @@ const selectCartData = createSelector(
 
 export default function Cart({ navigation }) {
   const [isModalVisible, setModalVisible] = useState(false);
+  const [isOrderFinish, setIsOrderFinish] = useState(false)
 
   const [selectedDate, setSelectedDate] = useState(new Date());
   const shortDate = selectedDate.toLocaleDateString('ru-RU', {
@@ -42,22 +43,33 @@ export default function Cart({ navigation }) {
   const toggleModal = () => {
     setModalVisible(!isModalVisible);
   };
-
-  let ordersCount = 0
   
+  const toggleOrderFinish = () => {
+    setIsOrderFinish(!isOrderFinish);
+  };
+
+  const ordersCount = Math.floor(Math.random() * 99999999)
+
   const sendOrder = async(orderType, orderItems, pizzas, pay) => {
-    ordersCount += 1
     
-    let message = `
+    let message = orderType === 'Доставка' ? `
         Заказ # ${ordersCount}
         ${orderType}
         ${pizzas.toString()}
         Сумма: ${totalPrice}
         Адрес Доставки: ${orderItems.address}
         Номер телефона: ${orderItems.phoneNumber}
-        Время доставки: ${shortTime}
+        ${showDate ? `Время доставки: ${shortTime}` : `Время доставки: Сейчас`}
         Комментарий: ${orderItems.comment}
         Способ оплаты: ${pay}
+      ` :
+      `Заказ # ${ordersCount}
+        ${orderType}
+        ${pizzas.toString()}
+        Сумма: ${totalPrice}
+        Номер телефона: ${orderItems.phoneNumber}
+        ${showDate ? `Время доставки: ${shortTime}` : `Время доставки: Сейчас`}
+        Комментарий: ${orderItems.comment}
       `
     await axios.post ('https://api.telegram.org/bot6449386041:AAGzqG0r-R9AJFcY0EeV0vv6XBjFNDx_7xE/sendMessage', {
       chat_id: "-1001929441485",
@@ -66,6 +78,7 @@ export default function Cart({ navigation }) {
       setSelectedDate(new Date())
       onClickClearCart()
       setModalVisible(false)
+      setIsOrderFinish(true)
     }).catch((err) => {
       console.warn(err)
     })
@@ -169,16 +182,30 @@ export default function Cart({ navigation }) {
                           selectedDate={selectedDate}
                           setSelectedDate={setSelectedDate}
                           showDate={showDate}
+                          ordersCount={ordersCount}
                           setShowDate={setShowDate}
                           items={uniqueProducts} 
                           totalCount={totalCount} 
                           totalPrice={totalPrice} 
                           isModalVisible={isModalVisible} 
+                          setModalVisible={setModalVisible}
+                          isOrderFinish={isOrderFinish} 
                           toggleModal={toggleModal}
                           sendOrder={sendOrder}
                           shortDate={shortDate}
                           shortTime={shortTime}
                     />
+                    {
+                      isOrderFinish ? (
+                        <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
+                          <Text>Order is done!</Text>
+                          <Pressable type="submit" style={{borderWidth: 1}} onPress={toggleModal}>
+                            <Text style={{color: '#000'}}>Закрыть</Text>
+                          </Pressable>
+                        </View>
+
+                      ) : null
+                    }
                   </View>
                 </View>
               </>

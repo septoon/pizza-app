@@ -24,12 +24,14 @@ import DatePicker from './DatePicker';
 const Form = ({
   items,
   countById,
-  selectedDate,
+  ordersCount,
   setSelectedDate,
   totalItems,
   sendOrder,
   totalPrice,
   isModalVisible,
+  setModalVisible,
+  isOrderFinish,
   toggleModal,
   showDate,
   shortDate,
@@ -99,7 +101,7 @@ const Form = ({
             style={styles.formTotal}>
             {(props) => (
               <>
-              <ScrollView stickyHeaderIndices={[3]}>
+              <ScrollView>
                 <View
                   style={colorScheme === 'light' ? styles.orderListWrapper : dark.orderListWrapper}>
                   {items.map((i) => {
@@ -194,8 +196,8 @@ const Form = ({
                       <RadioButton.Group
                         onValueChange={(newValue) => setValue(newValue)}
                         value={payValue}>
-                        <RadioButton.Item label="Наличные" value="Наличные" />
-                        <RadioButton.Item label="Карта" value="Карта" />
+                        <RadioButton.Item style={styles.radioBtnRow} labelStyle={colorScheme === 'dark' ? {color: 'white'} : null} color='orange' label="Наличные" value="Наличные" />
+                        <RadioButton.Item style={styles.radioBtnRow} labelStyle={colorScheme === 'dark' ? {color: 'white'} : null} color='orange' label="Карта" value="Карта" />
                       </RadioButton.Group>
                     </View>
                   </View>
@@ -205,6 +207,28 @@ const Form = ({
                       style={colorScheme === 'light' ? styles.formTotalPrice : dark.formTotalPrice}>
                       На сумму: <Text style={styles.formTotalPriceSum}>{totalPrice} ₽</Text>
                     </Text>
+                    <View
+                      style={colorScheme === 'light' ? styles.showDateToggle : dark.showDateToggle}>
+                      <Text
+                        style={
+                          colorScheme === 'light'
+                            ? styles.showDateToggleText
+                            : dark.showDateToggleText
+                        }>
+                        Выбрать время самовывоза
+                      </Text>
+                      <Switch value={showDate} color="#2ecb47" onValueChange={onToggleSwitch} />
+                    </View>
+                    <DatePicker
+                      showDate={showDate}
+                      colorScheme={colorScheme}
+                      showDatePicker={showDatePicker}
+                      isDatePickerVisible={isDatePickerVisible}
+                      shortDate={shortDate}
+                      shortTime={shortTime}
+                      handleConfirm={handleConfirm}
+                      hideDatePicker={hideDatePicker}
+                    />
                     <Text style={colorScheme === 'light' ? styles.formText : dark.formText}>
                       Введите ваш номер телефона:
                     </Text>
