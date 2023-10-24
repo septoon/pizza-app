@@ -1,4 +1,4 @@
-import { ScrollView, StyleSheet, Text, View, useColorScheme } from 'react-native';
+import { ScrollView, useColorScheme } from 'react-native';
 import CatalogItem from './CatalogItem';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';

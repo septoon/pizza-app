@@ -109,4 +109,13 @@ export const styles = StyleSheet.create({
     letterSpacing: 0.25,
     color: '#fe5f1e',
   },
+  flashMessage: {
+    position: 'absolute',
+    top: -100,
+    width: '100%',
+    borderRadius: 10,
+    borderWidth: 2,
+    borderColor: '#222',
+    zIndex: 9999
+  }
 });

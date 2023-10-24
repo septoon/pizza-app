@@ -1,4 +1,4 @@
-import { Image, Pressable, StyleSheet, Text, TouchableHighlight, View, useColorScheme } from 'react-native';
+import { Image, Pressable, Text, View, useColorScheme } from 'react-native';
 import React from 'react';
 import { styles } from './styles/CartItemStyles';
 

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Button, Image, StyleSheet, Text, View, Alert, Dimensions, ScrollView, Pressable, useColorScheme } from 'react-native';
+import { Text, View, Alert, ScrollView, Pressable, useColorScheme, Button } from 'react-native';
 import CartItem from './CartItem';
 import { useDispatch, useSelector } from 'react-redux';
 import { clearPizzaCartAC, removePizzaAC } from '../../../../redux/cart-reducer';
@@ -13,6 +13,7 @@ import Form from './Form/Form';
 import axios from 'axios';
 import { styles } from './styles/CartStyles';
 import { dark } from './styles/CartStylesDark';
+import FlashMessage, { showMessage } from 'react-native-flash-message';
 
 const selectCart = state => state.cart;
 const selectCartData = createSelector(
@@ -25,6 +26,7 @@ const selectCartData = createSelector(
 );
 
 export default function Cart({ navigation }) {
+
   const [isModalVisible, setModalVisible] = useState(false);
   const [isOrderFinish, setIsOrderFinish] = useState(false)
 
@@ -53,23 +55,31 @@ export default function Cart({ navigation }) {
   const sendOrder = async(orderType, orderItems, pizzas, pay) => {
     
     let message = orderType === 'Доставка' ? `
-        Заказ # ${ordersCount}
-        ${orderType}
-        ${pizzas.toString()}
-        Сумма: ${totalPrice}
-        Адрес Доставки: ${orderItems.address}
-        Номер телефона: ${orderItems.phoneNumber}
-        ${showDate ? `Время доставки: ${shortTime}` : `Время доставки: Сейчас`}
-        Комментарий: ${orderItems.comment}
-        Способ оплаты: ${pay}
+Заказ # ${ordersCount}
+${orderType}
+${pizzas.toString()}
+Сумма: ${totalPrice}
+Адрес Доставки: ${orderItems.address}
+Номер телефона: ${orderItems.phoneNumber}
+        ${showDate ? `
+Дата доставки: ${shortDate}
+Время доставки: ${shortTime}` : `
+Дата доставки: Сегодня
+Время доставки: Сейчас`}
+Комментарий: ${orderItems.comment}
+Способ оплаты: ${pay}
       ` :
-      `Заказ # ${ordersCount}
-        ${orderType}
-        ${pizzas.toString()}
-        Сумма: ${totalPrice}
-        Номер телефона: ${orderItems.phoneNumber}
-        ${showDate ? `Время доставки: ${shortTime}` : `Время доставки: Сейчас`}
-        Комментарий: ${orderItems.comment}
+`Заказ # ${ordersCount}
+${orderType}
+${pizzas.toString()}
+Сумма: ${totalPrice}
+Номер телефона: ${orderItems.phoneNumber}
+        ${showDate ? `
+Дата доставки: ${shortDate}
+Время доставки: ${shortTime}` : `
+Дата доставки: Сегодня
+Время доставки: Сейчас`}
+Комментарий: ${orderItems.comment}
       `
     await axios.post ('https://api.telegram.org/bot6449386041:AAGzqG0r-R9AJFcY0EeV0vv6XBjFNDx_7xE/sendMessage', {
       chat_id: "-1001929441485",
@@ -77,8 +87,10 @@ export default function Cart({ navigation }) {
     }).then((res) => {
       setSelectedDate(new Date())
       onClickClearCart()
-      setModalVisible(false)
-      setIsOrderFinish(true)
+      showMessage({
+        message,
+        type: 'success'
+      });
     }).catch((err) => {
       console.warn(err)
     })
@@ -164,11 +176,11 @@ export default function Cart({ navigation }) {
                 </ScrollView>
                 <View style={styles.cartBottom}>
                   <View style={styles.cartBottomDetails}>
-                    <Text style={styles.cartTotalCount}>
+                    <Text style={colorScheme === 'light' ? styles.cartTotalCount : dark.cartTotalCount}>
                       {' '}
                       Всего пицц: <Text style={styles.cartTotalCountSum}>{totalCount} шт.</Text>{' '}
                     </Text>
-                    <Text style={styles.cartTotalPrice}>
+                    <Text style={colorScheme === 'light' ? styles.cartTotalPrice : dark.cartTotalPrice}>
                       {' '}
                       Сумма заказа: <Text style={styles.cartTotalPriceSum}>{totalPrice} ₽</Text>{' '}
                     </Text>
@@ -195,17 +207,7 @@ export default function Cart({ navigation }) {
                           shortDate={shortDate}
                           shortTime={shortTime}
                     />
-                    {
-                      isOrderFinish ? (
-                        <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
-                          <Text>Order is done!</Text>
-                          <Pressable type="submit" style={{borderWidth: 1}} onPress={toggleModal}>
-                            <Text style={{color: '#000'}}>Закрыть</Text>
-                          </Pressable>
-                        </View>
-
-                      ) : null
-                    }
+                    
                   </View>
                 </View>
               </>
@@ -224,7 +226,7 @@ export default function Cart({ navigation }) {
                     <EmptyCartLogo style={styles.emptyCartLogo} />
                   )
                 }
-                 
+                <FlashMessage style={styles.flashMessage} duration={10000} position={'top'}/>
                 <Pressable style={styles.toMainBtn} onPress={() => {
                   navigation.navigate('Меню')}}>
                   <Text style={styles.backBtnText}>На главную</Text>

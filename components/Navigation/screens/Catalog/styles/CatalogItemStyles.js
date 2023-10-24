@@ -56,7 +56,8 @@ export const styles = StyleSheet.create({
     color: '#4f4d55',
   },
   priceCount: {
-    fontSize: 24
+    fontSize: 24,
+    fontWeight: 600
   },
   packingItem: {
     width: '100%',

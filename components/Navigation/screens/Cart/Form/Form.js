@@ -1,21 +1,7 @@
-import React, { useEffect, useRef, useState } from 'react';
-import {
-  Button,
-  Image,
-  Linking,
-  Modal,
-  Pressable,
-  ScrollView,
-  StyleSheet,
-  Text,
-  TextInput,
-  View,
-  useColorScheme,
-} from 'react-native';
+import React, { useState } from 'react';
+import { Modal, Pressable, ScrollView, Text, TextInput, View, useColorScheme } from 'react-native';
 import { Formik } from 'formik';
 import { RadioButton, Switch } from 'react-native-paper';
-
-import mask from '../../../../../assets/other/mask';
 import SlideButton from './SlideButton';
 import { styles } from './styles/FormStyles';
 import { dark } from './styles/FormStylesDark';
@@ -41,6 +27,7 @@ const Form = ({
   const [payValue, setValue] = React.useState('Наличные');
   const [activeMode, setActiveMode] = useState(false);
   const [orderType, setOrderType] = useState('Доставка');
+  const [isButtonPressed, setIsButtonPressed] = useState(false);
 
   const onToggleSwitch = () => setShowDate(!showDate);
 
@@ -96,7 +83,7 @@ const Form = ({
             Ваш заказ:
           </Text>
           <Formik
-            initialValues={{ address: '', phoneNumber: '+7 ', comment: '' }}
+            initialValues={{ address: '', phoneNumber: '+7', comment: '' }}
             onSubmit={(values) => sendOrder(orderType, values, pizzasList.toString(), payValue)}
             style={styles.formTotal}>
             {(props) => (
@@ -192,7 +179,7 @@ const Form = ({
                     <Text style={colorScheme === 'light' ? styles.formText : dark.formText}>
                       Спооб оплаты:
                     </Text>
-                    <View style="payment" name="checkbox">
+                    <View style={colorScheme === 'light' ? styles.payment : dark.payment} name="checkbox">
                       <RadioButton.Group
                         onValueChange={(newValue) => setValue(newValue)}
                         value={payValue}>
@@ -248,9 +235,16 @@ const Form = ({
                   </View>
                 )}
               </ScrollView>
-                <Pressable type="submit" style={styles.btnOrder} onPress={props.handleSubmit}>
-                  <Text style={styles.btnOrderText}>Заказать</Text>
-                </Pressable>
+            <Pressable style={[styles.btnOrder, isButtonPressed && styles.btnOrderPressed]} onPress={() => {
+              props.handleSubmit()
+              setIsButtonPressed(true);
+              setTimeout(() => {
+                setIsButtonPressed(false);
+                }, 200)
+            }}>
+              <Text style={[styles.btnOrderText, isButtonPressed && styles.btnOrderTextPressed]}>Заказать</Text>
+            </Pressable>
+
               </>
             )}
           </Formik>

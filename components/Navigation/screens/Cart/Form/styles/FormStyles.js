@@ -47,7 +47,6 @@ export const styles = StyleSheet.create({
     height: '100%',
   },
   orderListWrapper: {
-    maxHeight: '20%',
     backgroundColor: '#fff',
     padding: 10,
     borderRadius: 10,
@@ -150,5 +149,14 @@ export const styles = StyleSheet.create({
     fontWeight: 600,
     letterSpacing: 0.25,
     color: 'white',
+  },
+  btnOrderPressed: {
+    paddingVertical: 10,
+    borderWidth: 2,
+    borderColor: '#fe5f1e',
+    backgroundColor: 'transparent',
+  },
+  btnOrderTextPressed: {
+    color: '#fe5f1e',
   },
 });

@@ -10,7 +10,7 @@ export const dark = StyleSheet.create({
     paddingTop: 60,
     position: 'relative',
     borderBottomWidth: 1,
-    borderBottomColor: 'black'
+    borderBottomColor: 'black',
   },
   modalHeader: {
     position: 'absolute',
@@ -49,7 +49,6 @@ export const dark = StyleSheet.create({
     position: 'relative'
   },
   orderListWrapper: {
-    maxHeight: '20%',
     backgroundColor: '#212123',
     padding: 10,
     borderRadius: 10,
@@ -128,8 +127,7 @@ export const dark = StyleSheet.create({
     paddingLeft: 10
   },
   payment: {
-    width: '100%',
-    color: 'white'
+    marginBottom: 80
   },
   paymentButton: {
     flexDirection: 'row',

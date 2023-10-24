@@ -46,14 +46,16 @@ export const dark = StyleSheet.create({
     justifySelf: 'flex-end'
   },
   cartTotalCount: {
-    fontWeight: 600
+    fontWeight: 600,
+    color: '#fff'
   },
   cartTotalPrice: {
-    fontWeight: 600
+    fontWeight: 600,
+    color: '#fff'
   },
   cartTotalCountSum: {
     fontSize: 16,
-    fontWeight: 700,
+    fontWeight: 700
   },
   cartTotalPriceSum: {
     fontSize: 16,

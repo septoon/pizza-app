@@ -54,7 +54,8 @@ export const dark = StyleSheet.create({
   },
   priceCount: {
     color: 'white',
-    fontSize: 24
+    fontSize: 24,
+    fontWeight: 700
   },
   packingItem: {
     width: '100%',
