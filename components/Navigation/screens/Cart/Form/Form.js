@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
-import { Modal, Pressable, ScrollView, Text, TextInput, View, useColorScheme } from 'react-native';
+import { KeyboardAvoidingView, Modal, Platform, Pressable, ScrollView, Text, TextInput, View, useColorScheme } from 'react-native';
 import { Formik } from 'formik';
 import { RadioButton, Switch } from 'react-native-paper';
 import SlideButton from './SlideButton';
 import { styles } from './styles/FormStyles';
 import { dark } from './styles/FormStylesDark';
 import DatePicker from './DatePicker';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 
 const Form = ({
   items,
@@ -88,7 +89,7 @@ const Form = ({
             style={styles.formTotal}>
             {(props) => (
               <>
-              <ScrollView>
+              <KeyboardAwareScrollView>
                 <View
                   style={colorScheme === 'light' ? styles.orderListWrapper : dark.orderListWrapper}>
                   {items.map((i) => {
@@ -234,7 +235,7 @@ const Form = ({
                     </View>
                   </View>
                 )}
-              </ScrollView>
+              </KeyboardAwareScrollView>
             <Pressable style={[styles.btnOrder, isButtonPressed && styles.btnOrderPressed]} onPress={() => {
               props.handleSubmit()
               setIsButtonPressed(true);

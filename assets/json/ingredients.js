@@ -1,58 +1,58 @@
-export const ingredients = [
+export const ingredientsList = [
   {
-    'name': 'Сыр',
-    'price': 100
+    nameIngr: 'Сыр',
+    priceIngr: 100,
   },
   {
-    'name': 'Помидор',
-    'price': 70
+    nameIngr: 'Помидор',
+    priceIngr: 70,
   },
   {
-    'name': 'Грибы',
-    'price': 70
+    nameIngr: 'Грибы',
+    priceIngr: 70,
   },
   {
-    'name': 'Кукуруза',
-    'price': 70
+    nameIngr: 'Кукуруза',
+    priceIngr: 70,
   },
   {
-    'name': 'Болгарский перец',
-    'price': 70 
+    nameIngr: 'Болгарский перец',
+    priceIngr: 70,
   },
   {
-    'name': 'Салями',
-    'price': 100
+    nameIngr: 'Салями',
+    priceIngr: 100,
   },
   {
-    'name': 'Ветчина',
-    'price': 100
+    nameIngr: 'Ветчина',
+    priceIngr: 100,
   },
   {
-    'name': 'Буженина',
-    'price': 100
+    nameIngr: 'Буженина',
+    priceIngr: 100,
   },
   {
-    'name': 'Курица',
-    'price': 100
+    nameIngr: 'Курица',
+    priceIngr: 100,
   },
   {
-    'name': 'Кальмар',
-    'price': 140
+    nameIngr: 'Кальмар',
+    priceIngr: 140,
   },
   {
-    'name': 'Мидии',
-    'price': 140
+    nameIngr: 'Мидии',
+    priceIngr: 140,
   },
   {
-    'name': 'Семга',
-    'price': 200
+    nameIngr: 'Семга',
+    priceIngr: 200,
   },
   {
-    'name': 'Креветки',
-    'price': 140
+    nameIngr: 'Креветки',
+    priceIngr: 140,
   },
   {
-    'name': 'Куриное филе',
-    'price': 100
-  }
-]
+    nameIngr: 'Куриное филе',
+    priceIngr: 100,
+  },
+];

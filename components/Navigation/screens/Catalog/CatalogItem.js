@@ -2,6 +2,7 @@ import { createRef, useState } from 'react';
 import { Button, Image, Pressable, Text, View, useColorScheme } from 'react-native';
 import { styles } from './styles/CatalogItemStyles';
 import { dark } from './styles/CatalogItemStylesDark';
+import IngredientsModal from './IngredientsModal';
 
 
 export default function CatalogItem({ id, image, title, composition, prices, isChange, onClickAddPizza }) {
@@ -10,6 +11,8 @@ export default function CatalogItem({ id, image, title, composition, prices, isC
   const [activeSize, setActiveSize] = useState('30 см')
   const [activePrice, setActivePrice] = useState(prices[0])
   const [isButtonPressed, setIsButtonPressed] = useState(false);
+
+  const [isModalActive, setIsModalActive] = useState(false)
 
   const [selectedButton, setSelectedButton] = useState(1);
 
@@ -74,8 +77,8 @@ export default function CatalogItem({ id, image, title, composition, prices, isC
             textAlign: 'center',
           }}>+40₽ к стоимости, за упаковку</Text>
         </View>
-        <Button style={styles.ingredients} title='Добавить ингредиенты' />
-
+        <Button style={styles.ingredients} title='Добавить ингредиенты' onPress={setIsModalActive(true)} />
+        <IngredientsModal isModalActive={isModalActive} setIsModalActive={setIsModalActive} />
         <View style={styles.priceHolder}>
           <Text ref={priceHolder} style={colorScheme === 'light' ? styles.priceCount : dark.priceCount}>{activePrice} ₽</Text>
           <Pressable  style={[styles.btnOrder, isButtonPressed && styles.btnOrderPressed]} onPress={() => {
