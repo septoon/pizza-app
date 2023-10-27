@@ -1,14 +1,16 @@
 import React from 'react'
-import { Modal, Pressable, StyleSheet, Text, View } from 'react-native'
+import {  Pressable, StyleSheet, Text, View } from 'react-native'
 import { ingredientsList } from '../../../../assets/json/ingredients'
+import Modal from 'react-native-modal'
 
 const IngredientsModal = ({isModalActive, setIsModalActive}) => {
   return (
-    <Modal presentationStyle="pageSheet"
-          isModalInPresentation={true}
-          visible={isModalActive}>
-      <View>
-        <Pressable type="submit" style={styles.formBackBtn} onPress={setIsModalActive(false)}>
+    <Modal isVisible={isModalActive}
+    onSwipeComplete={() => setIsModalActive(false)}
+    swipeDirection="down"
+    style={{ margin: 0, justifyContent: 'flex-end' }}>
+      <View style={{marginTop: 150, borderRadius: 20}}>
+        <Pressable type="submit" style={styles.formBackBtn} onPress={ setIsModalActive(false) }>
           <Text style={styles.formBackBtnText}>Закрыть</Text>
         </Pressable>
         {
@@ -16,16 +18,17 @@ const IngredientsModal = ({isModalActive, setIsModalActive}) => {
             return (
               <View key={index}>
                 <Text>{item.nameIngr}</Text>
-                <View>
-                  <Text>{Item.priceIngr}</Text>
-                  <Pressable>
-                    <Text>+</Text>
-                  </Pressable>
-                </View>
+              <View>
+                <Text>{item.priceIngr}</Text>
+                <Pressable>
+                  <Text>+</Text>
+                </Pressable>
               </View>
+            </View>
             )
           })
         }
+     
       </View>
     </Modal>
   )
