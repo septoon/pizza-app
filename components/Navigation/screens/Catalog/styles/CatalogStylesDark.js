@@ -8,10 +8,11 @@ export const dark = StyleSheet.create({
     height: '100%',
   },
   modalIngrWrapper: {
-    height: '80%', 
+    height: 'auto', 
     borderRadius: 20, 
     backgroundColor: '#151517',
-    padding: 20
+    padding: 20,
+    paddingBottom: 30
   },
   ingredientsText: {
     color: '#fff',

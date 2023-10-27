@@ -74,8 +74,20 @@ export default function CatalogItem({ id, image, title, composition, prices, isC
             textAlign: 'center',
           }}>+40₽ к стоимости, за упаковку</Text>
         </View>
-        <Button style={styles.ingredients} title='Добавить ингредиенты' onPress={() => { setIsModalActive(true) }} />
-        
+        <View style={styles.ingredientsWrapper}>
+          <Pressable style={colorScheme === 'light' ? styles.ingredientsBtn : dark.ingredientsBtn} onPress={() => { setIsModalActive(true) }}>
+            <Text style={{
+              color: colorScheme === 'light' ? '#000' : '#fff', fontSize: 16,
+              textAlign: 'center',
+            }}>Добавить ингредиенты</Text>
+          </Pressable>
+          <View style={styles.ingredientsItemsWrapper}>
+            <View style={styles.ingredientsItem}>
+              <Text style={styles.ingredientsItemText}>Сыр</Text>
+              <Text style={styles.ingredientsItemText}> 1</Text>
+            </View>
+          </View>
+        </View>
         <View style={styles.priceHolder}>
           <Text ref={priceHolder} style={colorScheme === 'light' ? styles.priceCount : dark.priceCount}>{activePrice} ₽</Text>
           <Pressable  style={[styles.btnOrder, isButtonPressed && styles.btnOrderPressed]} onPress={() => {

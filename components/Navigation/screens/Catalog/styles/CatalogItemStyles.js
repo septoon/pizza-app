@@ -23,8 +23,8 @@ export const styles = StyleSheet.create({
   },
   name: {
     fontSize: 24,
-    fontWeight: 800,
-    marginBottom: 10,
+    fontWeight: 500,
+    marginVertical: 10,
   },
   description: {
     marginBottom: 10,
@@ -64,6 +64,25 @@ export const styles = StyleSheet.create({
     padding: 5,
     borderRadius: 5,
     backgroundColor: 'floralwhite'
+  },
+  ingredientsWrapper: {
+    width: '100%',
+  },
+  ingredientsBtn: {
+    width: '100%',
+    paddingVertical: 10,
+    borderRadius: 5,
+    backgroundColor: 'floralwhite'
+  },
+  ingredientsItemsWrapper: {
+    flexDirection: 'row'
+  },
+  ingredientsItem: {
+    width: 'auto',
+    padding: 5,
+    borderWidth: 1,
+    borderRadius: 5,
+    flexDirection: 'row'
   },
   priceHolder: {
     width: '100%',

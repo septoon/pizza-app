@@ -15,9 +15,12 @@ export const styles = StyleSheet.create({
     paddingBottom: 30
   },
   modalCloseBtn: {
-    width: 25,
-    height: 25,
-    alignSelf: 'flex-end',
+    width: 60,
+    height: 8,
+    borderRadius: 5,
+    backgroundColor: 'gray',
+    opacity: 0.3,
+    alignSelf: 'center',
     marginBottom: 20
   },
   ingredientsWrapper: {

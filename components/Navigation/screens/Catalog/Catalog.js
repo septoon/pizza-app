@@ -73,11 +73,7 @@ export default function Catalog() {
             style={{ margin: 0, justifyContent: 'flex-end' }}>
         <View style={colorScheme === 'light' ? styles.modalIngrWrapper : dark.modalIngrWrapper}>
           <Pressable type="submit" style={styles.modalCloseBtn} onPress={ () => setIsModalActive(false) }>
-           {colorScheme === 'light' ? (
-            <CloseIcon />
-           ) : (
-            <CloseIconDark />
-           )}
+           
           </Pressable>
           <ScrollView>
             {

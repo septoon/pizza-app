@@ -63,6 +63,15 @@ export const dark = StyleSheet.create({
     borderRadius: 5,
     backgroundColor: '#39383d'
   },
+  ingredientsWrapper: {
+    width: '100%',
+  },
+  ingredientsBtn: {
+    width: '100%',
+    paddingVertical: 10,
+    borderRadius: 5,
+    backgroundColor: '#39383d'
+  },
   priceHolder: {
     width: '100%',
     flexDirection: 'row',
