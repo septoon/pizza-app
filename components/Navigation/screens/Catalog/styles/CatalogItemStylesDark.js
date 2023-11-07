@@ -70,7 +70,11 @@ export const dark = StyleSheet.create({
     width: '100%',
     paddingVertical: 10,
     borderRadius: 5,
-    backgroundColor: '#39383d'
+    backgroundColor: '#39383d',
+    marginBottom: 10
+  },
+  ingredientsItemText: {
+    color: '#fff'
   },
   priceHolder: {
     width: '100%',

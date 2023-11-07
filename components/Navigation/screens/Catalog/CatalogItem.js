@@ -4,7 +4,7 @@ import { styles } from './styles/CatalogItemStyles';
 import { dark } from './styles/CatalogItemStylesDark';
 
 
-export default function CatalogItem({ id, image, title, composition, prices, isChange, onClickAddPizza, setIsModalActive }) {
+export default function CatalogItem({ id, image, title, composition, prices, isChange, onClickAddPizza, setIsModalActive, ingredientsData, ingredientsCount, ingredientsPrice }) {
   const priceHolder = createRef()
   const colorScheme = useColorScheme();
   const [activeSize, setActiveSize] = useState('30 см')
@@ -12,6 +12,22 @@ export default function CatalogItem({ id, image, title, composition, prices, isC
   const [isButtonPressed, setIsButtonPressed] = useState(false);
 
   const [selectedButton, setSelectedButton] = useState(1);
+
+  const totalPriceWithIngrs = parseInt(activePrice) + ingredientsPrice
+
+  const onAddIngredients = () => {
+    
+  }
+
+  const uniqueIngredients = ingredientsData.reduce((acc, current) => {
+    const isDuplicate = acc.find(
+      (item) => item.id === current.id,
+    );
+    if (!isDuplicate) {
+      acc.push(current);
+    }
+    return acc;
+  }, []);
 
   const onAddPizza = () => {
     const obj = {
@@ -75,21 +91,32 @@ export default function CatalogItem({ id, image, title, composition, prices, isC
           }}>+40₽ к стоимости, за упаковку</Text>
         </View>
         <View style={styles.ingredientsWrapper}>
-          <Pressable style={colorScheme === 'light' ? styles.ingredientsBtn : dark.ingredientsBtn} onPress={() => { setIsModalActive(true) }}>
+          <Pressable style={colorScheme === 'light' ? styles.ingredientsBtn : dark.ingredientsBtn} onPress={() => { 
+            setIsModalActive(true) 
+            onAddIngredients()
+            }}>
             <Text style={{
               color: colorScheme === 'light' ? '#000' : '#fff', fontSize: 16,
               textAlign: 'center',
             }}>Добавить ингредиенты</Text>
           </Pressable>
           <View style={styles.ingredientsItemsWrapper}>
-            <View style={styles.ingredientsItem}>
-              <Text style={styles.ingredientsItemText}>Сыр</Text>
-              <Text style={styles.ingredientsItemText}> 1</Text>
-            </View>
+          {
+              uniqueIngredients.map((item, index) => {
+                return (
+                  <View key={index} style={styles.ingredientsItem}>
+                    <Text style={colorScheme === 'light' ? styles.ingredientsItemText : dark.ingredientsItemText}>{item.nameIngr}</Text>
+                    <View style={styles.ingredientsItemCount}>
+                      <Text style={styles.ingredientsItemCountText}>{ingredientsCount}</Text>
+                    </View>
+                  </View>
+                )
+              })
+            }
           </View>
         </View>
         <View style={styles.priceHolder}>
-          <Text ref={priceHolder} style={colorScheme === 'light' ? styles.priceCount : dark.priceCount}>{activePrice} ₽</Text>
+          <Text ref={priceHolder} style={colorScheme === 'light' ? styles.priceCount : dark.priceCount}>{totalPriceWithIngrs} ₽</Text>
           <Pressable  style={[styles.btnOrder, isButtonPressed && styles.btnOrderPressed]} onPress={() => {
             onAddPizza();
             isButtonPressed ? setTimeout(() => {

@@ -75,14 +75,29 @@ export const styles = StyleSheet.create({
     backgroundColor: 'floralwhite'
   },
   ingredientsItemsWrapper: {
-    flexDirection: 'row'
+    width: '100%',
+    flexDirection: 'row',
+    flexWrap: 'wrap'
   },
   ingredientsItem: {
     width: 'auto',
-    padding: 5,
-    borderWidth: 1,
-    borderRadius: 5,
+    marginRight: 10,
+    marginBottom: 10,
     flexDirection: 'row'
+  },
+  ingredientsItemCount: {
+    width: 16,
+    height: 16,
+    marginLeft: 5,
+    borderRadius: '50%',
+    backgroundColor: 'orange',
+    justifyContent: 'center',
+    alignItems: 'center',
+    
+  },
+  ingredientsItemCountText: {
+    fontSize: 12,
+    color: '#fff'
   },
   priceHolder: {
     width: '100%',

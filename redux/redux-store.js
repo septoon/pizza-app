@@ -7,9 +7,11 @@ import deliveryReducer from './delivery-reducer'
 import navReducer from './nav-reducer'
 import teaCardReducer from './teaCard-reducer'
 import appReducer from './app-reducer'
+import ingredientsReducer from './ingredients-reducer'
 
 const reducers = combineReducers({
     catalogPage: catalogReducer,
+    ingredientsPage: ingredientsReducer,
     teaCardPage: teaCardReducer,
     deliveryPage: deliveryReducer,
     cart: cartReducer,
