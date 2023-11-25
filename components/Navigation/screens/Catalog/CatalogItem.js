@@ -117,16 +117,9 @@ export default function CatalogItem({ id, image, title, composition, prices, isC
         </View>
         <View style={styles.priceHolder}>
           <Text ref={priceHolder} style={colorScheme === 'light' ? styles.priceCount : dark.priceCount}>{totalPriceWithIngrs} ₽</Text>
-          <Pressable  style={[styles.btnOrder, isButtonPressed && styles.btnOrderPressed]} onPress={() => {
+          <Pressable style={[styles.btnOrder, isButtonPressed && styles.btnOrderPressed]} onPress={() => {
             onAddPizza();
-            isButtonPressed ? setTimeout(() => {
-              setIsButtonPressed(false);
-              setTimeout(() => {
-              setIsButtonPressed(true);
-              }, 100)
-            }, 0) : 
-              setIsButtonPressed(true);
-          }}>
+          }} onPressIn={() => setIsButtonPressed(true)} onPressOut={() => setIsButtonPressed(false)}>
             <Text style={[styles.btnOrderText, isButtonPressed && styles.btnOrderTextPressed]}>+ Добавить</Text>
           </Pressable>
         </View>

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Modal, Pressable, Text, TextInput, View, useColorScheme } from 'react-native';
 import SlideButton from './SlideButton';
 import { Formik } from 'formik';
@@ -36,6 +36,7 @@ const FormIOS = ({
 
   const colorScheme = useColorScheme();
   
+  const [isDisabled, setIsDisabled] = useState(true)
   return (
     <Modal
     presentationStyle="pageSheet"
@@ -130,7 +131,14 @@ const FormIOS = ({
                       required
                       style={colorScheme === 'light' ? styles.orderInput : dark.orderInput}
                       value={props.values.phoneNumber}
-                      onChangeText={props.handleChange('phoneNumber')}
+                      onChangeText={(text) => {
+                        props.handleChange('phoneNumber')(text);
+                        if (text.length > 11) {
+                          setIsDisabled(false);
+                        } else {
+                          setIsDisabled(true);
+                        }
+                      }}
                       placeholder="+7 (978) 704 88 06"
                       placeholderTextColor="#b8b8bb"
                       name="telephone"
@@ -211,12 +219,9 @@ const FormIOS = ({
                 </View>
               )}
             </KeyboardAwareScrollView>
-          <Pressable style={[styles.btnOrder, isButtonPressed && styles.btnOrderPressed]} onPress={() => {
+          <Pressable style={[isDisabled ? styles.btnOrderDisabled : styles.btnOrder, isButtonPressed && styles.btnOrderPressed]} disabled={isDisabled} onPress={() => {
+            
             props.handleSubmit()
-            setIsButtonPressed(true);
-            setTimeout(() => {
-              setIsButtonPressed(false);
-              }, 200)
           }}>
             <Text style={[styles.btnOrderText, isButtonPressed && styles.btnOrderTextPressed]}>Заказать</Text>
           </Pressable>

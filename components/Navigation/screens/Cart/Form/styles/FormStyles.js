@@ -52,6 +52,13 @@ export const styles = StyleSheet.create({
     borderRadius: 10,
     marginBottom: 20
   },
+  orderListWrapperAndroid: {
+    backgroundColor: '#fff',
+    maxHeight: 90,
+    paddingHorizontal: 10,
+    borderRadius: 10,
+    marginBottom: 20
+  },
   formTitle: {
     fontSize: 18,
     fontWeight: 600,
@@ -124,8 +131,7 @@ export const styles = StyleSheet.create({
     paddingLeft: 10
   },
   payment: {
-    width: '100%',
-    marginBottom: 20
+    width: '100%'
   },
   radioBtnRow: {
     paddingHorizontal: 0,
@@ -148,7 +154,32 @@ export const styles = StyleSheet.create({
     zIndex: 9999
   },
   btnOrderAndroid: {
-    marginTop: 20
+    position:'absolute',
+    bottom: 50,
+    marginTop: 20,
+    width: '100%',
+    alignSelf: 'center',
+    backgroundColor: '#fe5f1e',
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingVertical: 12,
+    paddingHorizontal: 18,
+    elevation: 3,
+    borderRadius: 10,
+  },
+  btnOrderDisabled: {
+    position:'absolute',
+    bottom: 70,
+    marginTop: 20,
+    width: '100%',
+    alignSelf: 'center',
+    backgroundColor: 'gray',
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingVertical: 12,
+    paddingHorizontal: 18,
+    elevation: 3,
+    borderRadius: 10,
   },
   btnOrderText: {
     fontSize: 16,

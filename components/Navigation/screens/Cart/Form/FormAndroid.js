@@ -1,5 +1,5 @@
-import React from 'react'
-import { Button, Modal, Pressable, Text,TextInput, View, useColorScheme } from 'react-native'
+import React, { useState } from 'react'
+import { Button, Modal, Pressable, ScrollView, Text,TextInput, View, useColorScheme } from 'react-native'
 import { styles } from './styles/FormStyles'
 import SlideButton from './SlideButton';
 import { Formik } from 'formik';
@@ -35,7 +35,7 @@ const FormAndroid = ({
 }) => {
 
   const colorScheme = useColorScheme();
-
+  const [isDisabled, setIsDisabled] = useState(true)
   return (
    <Modal
     visible={isModalVisible}
@@ -65,8 +65,8 @@ const FormAndroid = ({
           {(props) => (
             <>
               <KeyboardAwareScrollView behavior={Platform.OS === "ios" ? "padding" : "height"}>
-                <View
-                  style={colorScheme === 'light' ? styles.orderListWrapper : dark.orderListWrapper}>
+                <ScrollView
+                  style={colorScheme === 'light' ? styles.orderListWrapperAndroid : dark.orderListWrapper}>
                   {items.map((i) => {
                     const count = countById(totalItems, i.id, i.activeSize);
 
@@ -79,7 +79,7 @@ const FormAndroid = ({
                       />
                     );
                   })}
-                </View>
+                </ScrollView>
                 {!activeMode ? (
                 <View style={styles.orderInputsWrapper}>
                   <Text
@@ -130,12 +130,19 @@ const FormAndroid = ({
                       required
                       style={colorScheme === 'light' ? styles.orderInput : dark.orderInput}
                       value={props.values.phoneNumber}
-                      onChangeText={props.handleChange('phoneNumber')}
+                      onChangeText={(text) => {
+                        props.handleChange('phoneNumber')(text);
+                        if (text.length > 11) {
+                          setIsDisabled(false);
+                        } else {
+                          setIsDisabled(true);
+                        }
+                      }}
                       placeholder="+7 (978) 704 88 06"
                       placeholderTextColor="#b8b8bb"
                       name="telephone"
                       keyboardType="numeric"
-                      maxLength={13}
+                      maxLength={12}
                     />
                   </View>
                   <Text style={colorScheme === 'light' ? styles.formText : dark.formText}>
@@ -210,14 +217,12 @@ const FormAndroid = ({
                   </View>
                 </View>
               )}
-              <Button style={styles.btnOrderAndroid} color="#fe5f1e" title="Заказать" onPress={() => {
-                props.handleSubmit()
-                setIsButtonPressed(true);
-                setTimeout(() => {
-                  setIsButtonPressed(false);
-                  }, 200)
-              }} />
               </KeyboardAwareScrollView>
+              <Pressable style={isDisabled ? styles.btnOrderDisabled : styles.btnOrderAndroid} disabled={isDisabled} onPress={() => {
+                props.handleSubmit()
+              }}>
+                <Text style={styles.btnOrderText}>Заказать</Text>
+              </Pressable>
             </>
           )}
         </Formik>

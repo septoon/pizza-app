@@ -20,6 +20,9 @@ const Tab = createBottomTabNavigator();
 
 export default function Navigation() {
   const colorScheme = useColorScheme();
+
+  const barHeight = Platform.OS === 'ios' ? 90 : 60
+
   return (
     <NavigationContainer>
        <Tab.Navigator
@@ -44,7 +47,7 @@ export default function Navigation() {
           tabBarActiveTintColor: 'tomato',
           tabBarInactiveTintColor: 'grey',
           tabBarLabelStyle: { paddingBottom: 10, fontSize: 10 },
-          tabBarStyle: { backgroundColor: colorScheme === 'light' ? 'white' : 'black', padding: 10, height: 90, borderTopWidth: 0 }
+          tabBarStyle: { backgroundColor: colorScheme === 'light' ? 'white' : 'black', padding: 10, height: barHeight, borderTopWidth: 0 }
         })}
         >
 

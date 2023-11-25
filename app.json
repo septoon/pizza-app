@@ -1,10 +1,10 @@
 {
   "expo": {
-    "name": "pizza-app",
+    "name": "Доставка пиццы",
     "slug": "pizza-app",
-    "version": "1.0.0",
+    "version": "1.1.0",
     "orientation": "portrait",
-    "icon": "./assets/img/pizza.png",
+    "icon": "./assets/img/appIcon.png",
     "userInterfaceStyle": "automatic",
     "splash": {
       "image": "./assets/img/splashScreen.png",
@@ -21,12 +21,18 @@
     "android": {
       "userInterfaceStyle": "automatic",
       "adaptiveIcon": {
-        "foregroundImage": "./assets/img/pizza.png",
+        "foregroundImage": "./assets/img/appIcon.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "package": "com.septon.pizzaapp"
     },
     "web": {
       "favicon": "./assets/img/pizza.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "c09084a9-29cb-4e56-b82b-8d5479c8812d"
+      }
     }
   }
 }
