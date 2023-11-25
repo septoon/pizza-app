@@ -125,9 +125,13 @@ export const styles = StyleSheet.create({
   },
   payment: {
     width: '100%',
+    marginBottom: 20
   },
   radioBtnRow: {
     paddingHorizontal: 0,
+  },
+  selfDeliveryInput: {
+    marginBottom: 40
   },
   btnOrder: {
     position: 'fixed',
@@ -142,6 +146,9 @@ export const styles = StyleSheet.create({
     elevation: 3,
     borderRadius: 10,
     zIndex: 9999
+  },
+  btnOrderAndroid: {
+    marginTop: 20
   },
   btnOrderText: {
     fontSize: 16,

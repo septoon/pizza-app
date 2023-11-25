@@ -34,9 +34,9 @@ export default function Navigation() {
             } else if (rn === cartName) {
               iconName = focused ? 'cart' : 'cart-outline';
             } else if (rn === teaName) {
-              iconName = focused ? 'list' : 'list-outline';
+              iconName = focused ? 'cafe' : 'cafe-outline';
             } else if (rn === deliveryName) {
-              iconName = focused ? 'list' : 'list-outline';
+              iconName = focused ? 'car-sport' : 'car-sport-outline';
             }
         
             return <Ionicons name={iconName} size={size} color={color} />;

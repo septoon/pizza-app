@@ -88,5 +88,10 @@ export const deliveryList = [
     city: 'Кооператив "Дельфин"',
     price: '300р.',
     id: 17
+  },
+  {
+    city: 'По городу',
+    price: 'Бесплатно',
+    id: 18
   }
 ]

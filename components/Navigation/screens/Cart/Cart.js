@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Text, View, Alert, ScrollView, Pressable, useColorScheme, Button } from 'react-native';
+import { Text, View, Alert, ScrollView, Pressable, useColorScheme, Image } from 'react-native';
 import CartItem from './CartItem';
 import { useDispatch, useSelector } from 'react-redux';
 import { clearPizzaCartAC, removePizzaAC } from '../../../../redux/cart-reducer';
@@ -79,7 +79,6 @@ ${pizzas.toString()}
 Время доставки: ${shortTime}` : `
 Дата доставки: Сегодня
 Время доставки: Сейчас`}
-Комментарий: ${orderItems.comment}
       `
     await axios.post ('https://api.telegram.org/bot6449386041:AAGzqG0r-R9AJFcY0EeV0vv6XBjFNDx_7xE/sendMessage', {
       chat_id: "-1001929441485",
@@ -144,7 +143,13 @@ ${pizzas.toString()}
                         {text: 'OK', onPress: () => dispatch(clearPizzaCartAC())},
                       ])
                     }}>
-                      <TrashIcon style={styles.cartClearIcon} />
+                      {Platform.OS === 'IOS' ? 
+                        (
+                          <Image source={require('../../../../assets/img/trashIcon.svg')} style={styles.cartClearIcon} />
+                        ) : (
+                          <Image source={require('../../../../assets/img/trashIcon.png')} style={styles.cartClearIcon} />
+                        )
+                      }
                       <Text style={styles.cartClearText}>Очистить корзину</Text>
                     </Pressable>
                 </View>
@@ -164,7 +169,7 @@ ${pizzas.toString()}
 
                     return (
                       <CartItem
-                        key={index}
+                        key={`${item.id}-${item.activeSize}`}
                         count={count}
                         result={result}
                         price={price}
@@ -219,13 +224,13 @@ ${pizzas.toString()}
                   Вероятней всего, вы не заказывали ещё пиццу. Для того, чтобы заказать пиццу,
                   перейди на главную страницу.
                 </Text>
-                {
-                  colorScheme === 'light' ? (
-                    <EmptyCartLogoLight style={styles.emptyCartLogo} />
-                  ) : (
-                    <EmptyCartLogo style={styles.emptyCartLogo} />
-                  )
-                }
+                <View style={colorScheme === 'light' ? styles.emptyCartLogoContainer : dark.emptyCartLogoContainer}>
+                  {Platform.OS === 'IOS' ? 
+                    (<Image style={{ alignSelf: 'center' }} source={require('../../../../assets/img/empty-cart.1.svg')} />)
+                     :
+                    (<Image style={{ alignSelf: 'center' }} source={require('../../../../assets/img/empty-cart.1.png')} />)
+                  }
+                </View>
                 <FlashMessage style={styles.flashMessage} duration={10000} position={'top'}/>
                 <Pressable style={styles.toMainBtn} onPress={() => {
                   navigation.navigate('Меню')}}>

@@ -8,6 +8,7 @@ import { dark } from './styles/CartItemStylesDark';
 export default function CartItem({
   id,
   image,
+  index,
   title,
   activeSize,
   result,
@@ -46,14 +47,20 @@ export default function CartItem({
         <Text style={colorScheme === 'light' ? styles.priceText : dark.priceText}>{price}₽</Text>
       </View>
       <View style={styles.cartItemRemove}>
-        <Pressable style={styles.closeCart} onPress={() => {
+        <Pressable onPress={() => {
           const pizzaObj = {
             pizzaId: id,
             pizzaSize: activeSize,
           };
           onClickRemovePizza(pizzaObj);
         }}>
-          <TrashIcon />
+          {Platform.OS === 'IOS' ? 
+            (
+              <Image style={styles.closeCart} source={require('../../../../assets/img/trashIcon.svg')} />
+            ) : (
+              <Image style={styles.closeCart} source={require('../../../../assets/img/trashIcon.png')} />
+            )
+          }
         </Pressable>
       </View>
     </View>

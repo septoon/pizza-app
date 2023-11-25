@@ -1,7 +1,8 @@
-import { Image, StyleSheet, Text, View, useColorScheme } from 'react-native';
+import { Image, Platform, StyleSheet, Text, View, useColorScheme } from 'react-native';
 import {  useSelector } from 'react-redux';
 import { createSelector } from 'reselect';
 import ShoppingCart from '../../assets/img/shopping-cart.svg'
+import ShoppingCartAndroid from '../../assets/img/shopping-cart.png'
 import { dark } from './HeaderDarkMode';
 
 const selectCart = state => state.cart;
@@ -24,7 +25,11 @@ export default function Header() {
         <Text style={styles.basketText}>{totalPrice} ₽</Text>
         <Text style={styles.basketText}>|</Text>
         <View style={styles.basketIconWrapper}>
-          <ShoppingCart style={styles.basketIcon} />
+          {Platform.OS === 'IOS' ? (
+            <Image source={require('../../assets/img/shopping-cart.svg')} style={styles.basketIcon} />
+          ) : (
+            <Image source={require('../../assets/img/shopping-cart.png')} style={styles.basketIcon} />
+          )}
           <Text style={styles.basketText}>{totalCount}</Text>
         </View>
       </View>

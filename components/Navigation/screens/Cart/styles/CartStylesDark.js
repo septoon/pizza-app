@@ -95,9 +95,10 @@ export const dark = StyleSheet.create({
     color: '#fff',
     marginBottom: 30
   },
-  emptyCartLogo: {
+  emptyCartLogoContainer: {
+    width: '100%',
     height: 150,
-    marginBottom: 30
+    marginBottom: 30,
   },
   toMainBtn: {
     borderWidth: 2,

@@ -6,7 +6,8 @@ export const styles = StyleSheet.create({
     paddingHorizontal: 10
   },
   teaCardTitle: {
-    fontSize: 22
+    fontSize: 22,
+    fontWeight: 700,
   },
   cardItem: {
     width: '100%',
