@@ -2,7 +2,7 @@
   "expo": {
     "name": "Доставка пиццы",
     "slug": "pizza-app",
-    "version": "1.1.0",
+    "version": "1.2.1",
     "orientation": "portrait",
     "icon": "./assets/img/appIcon.png",
     "userInterfaceStyle": "automatic",

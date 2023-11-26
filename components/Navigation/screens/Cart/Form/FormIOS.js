@@ -208,7 +208,14 @@ const FormIOS = ({
                       required
                       style={colorScheme === 'light' ? styles.orderInput : dark.orderInput}
                       value={props.values.phoneNumber}
-                      onChangeText={props.handleChange('phoneNumber')}
+                      onChangeText={(text) => {
+                        props.handleChange('phoneNumber')(text);
+                        if (text.length > 11) {
+                          setIsDisabled(false);
+                        } else {
+                          setIsDisabled(true);
+                        }
+                      }}
                       placeholder="+7 (978) 704 88 06"
                       placeholderTextColor="#b8b8bb"
                       name="telephone"

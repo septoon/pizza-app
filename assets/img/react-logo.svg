@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="_Слой_1" data-name="Слой 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1969.94 228.71">
+  <defs>
+    <style>
+      .cls-1 {
+        letter-spacing: -.03em;
+      }
+
+      .cls-1, .cls-2 {
+        fill: #db082e;
+      }
+
+      .cls-3 {
+        fill: #fdbd0c;
+        letter-spacing: 0em;
+      }
+
+      .cls-4 {
+        font-family: JostRoman-Black, Jost;
+        font-size: 288.82px;
+        font-variation-settings: 'wght' 900;
+        font-weight: 800;
+      }
+    </style>
+  </defs>
+  <text class="cls-4" transform="translate(-12.04 219.78)"><tspan class="cls-2" x="0" y="0">RE</tspan><tspan class="cls-1" x="385.57" y="0">AC</tspan><tspan class="cls-2" x="798.59" y="0">T </tspan><tspan class="cls-3" x="1064.3" y="0">PIZZA</tspan></text>
+</svg>
